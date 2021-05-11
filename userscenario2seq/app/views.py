@@ -31,10 +31,14 @@ def mainIndex(request):
 def detailProject(request, project_id):
     
     context = {}
-    context['segment'] = project_id
+    context['id'] = project_id
+    context['name'] = "Ini nama project"
+    context['array'] = [project_id, "Ini nama project"]
 
-    html_template = loader.get_template( 'main/detail-project.html' )
-    return HttpResponse(html_template.render(context, request))
+
+    #html_template = loader.get_template( 'main/detail-project.html' )
+    return render(request, 'main/detail-project.html', {'context': context})
+    #return HttpResponse(html_template.render(context, request))
 
 @login_required(login_url="/login/")
 def pages(request):
