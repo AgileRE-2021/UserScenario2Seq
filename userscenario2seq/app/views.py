@@ -31,7 +31,7 @@ def mainIndex(request):
 def detailProject(request, project_id):
     
     context = {}
-    context['segment'] = 
+    context['segment'] = project_id
 
     html_template = loader.get_template( 'main/detail-project.html' )
     return HttpResponse(html_template.render(context, request))
