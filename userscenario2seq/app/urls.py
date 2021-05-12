@@ -14,6 +14,9 @@ urlpatterns = [
     # # Main index page
     path('main', views.mainIndex, name='index'),
 
+    # # Main index page
+    path('fitur', views.mainFitur, name='fitur'),
+
     # Coba pakai id
     path('detail-project/<int:project_id>', views.detailProject, name='detail-project'),
 
