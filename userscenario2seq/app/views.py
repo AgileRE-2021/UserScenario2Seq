@@ -35,6 +35,12 @@ def detailProject(request, project_id):
     context['name'] = "Ini nama project"
     context['array'] = [project_id, "Ini nama project"]
 
+    '''
+    context = {
+        segment: 'index',
+    }
+    '''
+
 
     #html_template = loader.get_template( 'main/detail-project.html' )
     return render(request, 'main/detail-project.html', {'context': context})
