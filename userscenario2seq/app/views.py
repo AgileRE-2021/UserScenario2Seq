@@ -36,6 +36,30 @@ def mainFitur(request):
     return render(request, 'main/fitur.html', {'context': context})
 
 @login_required(login_url="/login/")
+def tutorial(request):
+    
+    context = {}
+    context['segment'] = 'tutorial'
+
+    return render(request, 'main/tutorial.html', {'context': context})
+
+@login_required(login_url="/login/")
+def createProject(request):
+    
+    context = {}
+    context['segment'] = 'createProject'
+
+    return render(request, 'main/create-project.html', {'context': context})
+
+@login_required(login_url="/login/")
+def listProject(request):
+    
+    context = {}
+    context['segment'] = 'listProject'
+
+    return render(request, 'main/list-project.html', {'context': context})
+
+@login_required(login_url="/login/")
 def detailProject(request, project_id):
     
     context = {}
