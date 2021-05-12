@@ -15,18 +15,18 @@ urlpatterns = [
     path('main', views.mainIndex, name='index'),
 
     # # Fitur page
-    #path('fitur', views.fitur, name='fitur'),
+    path('fitur', views.mainFitur, name='fitur'),
     
     # # Create Project Page
-    #path('create-project', views.createProject, name='create-project'),
+    path('create-project', views.createProject, name='create-project'),
     
     # # Tutorial page
-    #path('tutorial', views.tutorial, name='tutorial'),
+    path('tutorial', views.tutorial, name='tutorial'),
     
     # # List Project Page
-    #path('list-project', views.list-Project, name='list-project'),
-
-    # # Detail Project Page
+    path('list-project', views.listProject, name='list-project'),
+    
+    # Coba pakai id
     path('detail-project/<int:project_id>', views.detailProject, name='detail-project'),
 
     # # Edit Feature Page

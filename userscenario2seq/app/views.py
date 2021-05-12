@@ -28,6 +28,14 @@ def mainIndex(request):
     return HttpResponse(html_template.render(context, request))
 
 @login_required(login_url="/login/")
+def mainFitur(request):
+    
+    context = {}
+    context['segment'] = 'fitur'
+
+    return render(request, 'main/fitur.html', {'context': context})
+
+@login_required(login_url="/login/")
 def detailProject(request, project_id):
     
     context = {}
