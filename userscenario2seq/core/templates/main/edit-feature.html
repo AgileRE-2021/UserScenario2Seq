@@ -10,40 +10,69 @@
     <!-- [ Main Content ] start -->
     <div class="pcoded-main-container">
         <div class="pcoded-content">
-            <!-- [ breadcrumb ] start -->
-            <!-- <div class="page-header">
-                <div class="page-block">
-                    <div class="row align-items-center">
-                        <div class="col-md-12">
-                            <div class="page-header-title">
-                                <h5 class="m-b-10">Dashboard Analytics</h5>
-                            </div>
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                                <li class="breadcrumb-item"><a href="#!">Dashboard Analytics</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            <!-- [ breadcrumb ] end -->
-            <!-- [ Main Content ] start -->
             <div class="row">
-               <div class="col-md-12">
+               <div class="col-sm-12">
                     <div class="card">
-                        <h5 class="card-header">Featured</h5>
                         <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#!" class="btn  btn-primary">Go somewhere</a>
+                            <h5>Add Feature</h5>
+                            <hr>
+                            <form>
+                                <div class="form-group">
+                                    <label for="featureName">Feature Name</label>
+                                    <input type="text" class="form-control" id="featureName" aria-describedby="featureName" placeholder="Enter Feature Name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="userStory">User Story</label>
+                                    <input type="text" class="form-control" id="userStory" aria-describedby="userStory" placeholder="Enter User Story">
+                                    <small id="userStory" class="form-text text-muted">Format: As a [role], I want to [action], so that I [benefit]</small>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label>User Scenario</label>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <select id="userScenario1" class="form-control">
+                                            <option selected>Given</option>
+                                            <option>When</option>
+                                            <option>Then</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-10">
+                                        <input type="text" class="form-control" id="jenisScenario1" aria-describedby="jenisScenario1" placeholder="Enter User Scenario">
+                                        <small id="jenisScenario1" class="form-text text-muted">Ex: "I go to URL", "Im on Layout"</small>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <select id="userScenario2" class="form-control">
+                                            <option selected>Given</option>
+                                            <option>When</option>
+                                            <option>Then</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-10">
+                                        <input type="text" class="form-control" id="jenisScenario2" aria-describedby="jenisScenario2" placeholder="Enter User Scenario">
+                                        <small id="jenisScenario2" class="form-text text-muted">Ex: "I click on Play button"</small>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <select id="userScenario3" class="form-control">
+                                            <option selected>Given</option>
+                                            <option>When</option>
+                                            <option>Then</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-10">
+                                        <input type="text" class="form-control" id="jenisScenario3" aria-describedby="jenisScenario3" placeholder="Enter User Scenario">
+                                        <small id="jenisScenario3" class="form-text text-muted">Ex: "The System should display Tutorial"</small>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn  btn-danger">Cancel</button>
+                                <button type="submit" class="btn  btn-primary">Submit</button>
+                            </form>
                         </div>
                     </div>
                </div>
             </div>
-            <!-- [ Main Content ] end -->
         </div>
     </div>
-    <!-- [ Main Content ] end -->
 
 {% endblock content %}
 
