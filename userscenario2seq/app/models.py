@@ -17,7 +17,7 @@ class feature(models.Model):
     project = models.ForeignKey(project, on_delete=models.CASCADE)
     id_feature = models.IntegerField(default=0)
     feature_name = models.CharField(max_length=20)
-    user_story = model.CharField(max_length=100)
+    user_story = models.CharField(max_length=100)
     date_created = models.DateTimeField()
     last_updated = models.DateTimeField()
 
