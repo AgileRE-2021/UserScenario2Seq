@@ -36,6 +36,30 @@ def mainFitur(request):
     return render(request, 'main/fitur.html', {'context': context})
 
 @login_required(login_url="/login/")
+def tutorial(request):
+    
+    context = {}
+    context['segment'] = 'tutorial'
+
+    return render(request, 'main/tutorial.html', {'context': context})
+
+@login_required(login_url="/login/")
+def createProject(request):
+    
+    context = {}
+    context['segment'] = 'createProject'
+
+    return render(request, 'main/create-project.html', {'context': context})
+
+@login_required(login_url="/login/")
+def listProject(request):
+    
+    context = {}
+    context['segment'] = 'listProject'
+
+    return render(request, 'main/list-project.html', {'context': context})
+
+@login_required(login_url="/login/")
 def detailProject(request, project_id):
     
     context = {}
@@ -53,6 +77,25 @@ def detailProject(request, project_id):
     #html_template = loader.get_template( 'main/detail-project.html' )
     return render(request, 'main/detail-project.html', {'context': context})
     #return HttpResponse(html_template.render(context, request))
+
+@login_required(login_url="/login/")
+def addFeature(request, project_id):
+    
+    context = {}
+    context['id'] = project_id
+  
+    #html_template = loader.get_template( 'main/detail-project.html' )
+    return render(request, 'main/add-feature.html', {'context': context})
+
+@login_required(login_url="/login/")
+def editFeature(request, project_id, feature_id):
+    
+    context = {}
+    context['idProject'] = project_id
+    context['idFeature'] = feature_id
+  
+    #html_template = loader.get_template( 'main/detail-project.html' )
+    return render(request, 'main/edit-feature.html', {'context': context})
 
 @login_required(login_url="/login/")
 def pages(request):
