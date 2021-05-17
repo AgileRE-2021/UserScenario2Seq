@@ -14,11 +14,26 @@ urlpatterns = [
     # # Main index page
     path('main', views.mainIndex, name='index'),
 
-    # # Main index page
+    # # Fitur page
     path('fitur', views.mainFitur, name='fitur'),
-
+    
+    # # Create Project Page
+    path('create-project', views.createProject, name='create-project'),
+    
+    # # Tutorial page
+    path('tutorial', views.tutorial, name='tutorial'),
+    
+    # # List Project Page
+    path('list-project', views.listProject, name='list-project'),
+    
     # Coba pakai id
     path('detail-project/<int:project_id>', views.detailProject, name='detail-project'),
+
+    # # Edit Feature Page
+    path('edit-feature/<int:project_id>/<int:feature_id>', views.editFeature, name='edit-feature'),
+
+    # # Add Feature Page
+    path('add-feature/<int:project_id>', views.addFeature, name='add-feature'),
 
     # Matches any html file
     re_path(r'^.*\.*', views.pages, name='pages'),
