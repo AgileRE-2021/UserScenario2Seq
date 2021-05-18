@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 from django.http import HttpResponse
+from .models import *
 from django import template
 
 @login_required(login_url="/login/")
@@ -79,13 +80,27 @@ def detailProject(request, project_id):
     #return HttpResponse(html_template.render(context, request))
 
 @login_required(login_url="/login/")
-def addFeature(request, project_id):
+def addFeature(request):
     
-    context = {}
-    context['id'] = project_id
+    id_feature = request.POST.get("id_feature")
+    feature_name = request.POST.get("feature_name")
+    user_story = request.POST.get("user_story")
+    id_scenario  = request.POST.get("id_scenario")
+    tipe = request.POST.get("tipe")
+    content  = request.POST.get("content")
   
     #html_template = loader.get_template( 'main/detail-project.html' )
-    return render(request, 'main/add-feature.html', {'context': context})
+    return render(request, 'main/add-feature.html')
+
+@login_required(login_url="/login/")
+def hasil(request):
+    
+    context = {}
+    context['hasil'] = feature.feature_name.objects.all()
+    context['hasil1'] = feature.user_story.objects.all()
+  
+    #html_template = loader.get_template( 'main/detail-project.html' )
+    return render(request, 'main/hasil.html', {'context': context})
 
 @login_required(login_url="/login/")
 def editFeature(request, project_id, feature_id):

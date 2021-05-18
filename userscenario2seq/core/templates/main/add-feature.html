@@ -16,19 +16,20 @@
                         <div class="card-body">
                             <h5>Add Feature</h5>
                             <hr>
-                            <form>
+                            <form method="POST" enctype="multipart/form-data" class="post-form" action="/add-feature/hasil">
+                                {% csrf_token %}
                                 <div class="form-group">
-                                    <label for="featureName">Feature Name</label>
-                                    <input type="text" class="form-control" id="featureName" aria-describedby="featureName" placeholder="Enter Feature Name">
+                                    <h6>Feature Name</h6>
+                                    <input type="text" class="form-control" name="featureName id="featureName" placeholder="Enter Feature Name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="userStory">User Story</label>
-                                    <input type="text" class="form-control" id="userStory" aria-describedby="userStory" placeholder="Enter User Story">
+                                    <h6>User Story</h6>
+                                    <input type="text" class="form-control" id="userStory" name="userStory" placeholder="Enter User Story">
                                     <small id="userStory" class="form-text text-muted">Format: As a [role], I want to [action], so that I [benefit]</small>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
-                                        <label>User Scenario</label>
+                                        <h6>User Scenario</h6>
                                     </div>
                                     <div class="form-group col-md-2">
                                         <select id="userScenario1" class="form-control">
@@ -38,7 +39,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-10">
-                                        <input type="text" class="form-control" id="jenisScenario1" aria-describedby="jenisScenario1" placeholder="Enter User Scenario">
+                                        <input type="text" class="form-control" id="jenisScenario1" name="jenisScenario1" placeholder="Enter User Scenario">
                                         <small id="jenisScenario1" class="form-text text-muted">Ex: "I go to URL", "Im on Layout"</small>
                                     </div>
                                     <div class="form-group col-md-2">
@@ -49,7 +50,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-10">
-                                        <input type="text" class="form-control" id="jenisScenario2" aria-describedby="jenisScenario2" placeholder="Enter User Scenario">
+                                        <input type="text" class="form-control" id="jenisScenario2" name="jenisScenario2" placeholder="Enter User Scenario">
                                         <small id="jenisScenario2" class="form-text text-muted">Ex: "I click on Play button"</small>
                                     </div>
                                     <div class="form-group col-md-2">
@@ -60,7 +61,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-10">
-                                        <input type="text" class="form-control" id="jenisScenario3" aria-describedby="jenisScenario3" placeholder="Enter User Scenario">
+                                        <input type="text" class="form-control" id="jenisScenario3" name="jenisScenario3" placeholder="Enter User Scenario">
                                         <small id="jenisScenario3" class="form-text text-muted">Ex: "The System should display Tutorial"</small>
                                     </div>
                                 </div>
