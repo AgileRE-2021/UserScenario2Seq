@@ -82,8 +82,8 @@ def detailProject(request):
 @login_required(login_url="/login/")
 def addFeature(request):
     
-    featureName = request.POST.get("feature_name")
-    userStory = request.POST.get("user_story")
+    featureName = request.POST.get("featureName")
+    userStory = request.POST.get("userStory")
     tipe = request.POST.get("tipe")
     content  = request.POST.get("content")
   
