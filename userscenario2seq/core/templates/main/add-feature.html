@@ -16,7 +16,7 @@
                         <div class="card-body">
                             <h5>Add Feature</h5>
                             <hr>
-                            <form method="POST" enctype="multipart/form-data" class="post-form" action="/add-feature/hasil">
+                            <form method="POST" enctype="multipart/form-data" class="post-form" action="/detail-project">
                                 {% csrf_token %}
                                 <div class="form-group">
                                     <h6>Feature Name</h6>
@@ -32,36 +32,36 @@
                                         <h6>User Scenario</h6>
                                     </div>
                                     <div class="form-group col-md-2">
-                                        <select id="userScenario1" class="form-control">
+                                        <select id="userScenario1" class="form-control" name="tipe">
                                             <option selected>Given</option>
                                             <option>When</option>
                                             <option>Then</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-10">
-                                        <input type="text" class="form-control" id="jenisScenario1" name="jenisScenario1" placeholder="Enter User Scenario">
+                                        <input type="text" class="form-control" id="content name="content" placeholder="Enter User Scenario">
                                         <small id="jenisScenario1" class="form-text text-muted">Ex: "I go to URL", "Im on Layout"</small>
                                     </div>
                                     <div class="form-group col-md-2">
-                                        <select id="userScenario2" class="form-control">
+                                        <select id="userScenario2" class="form-control" name="tipe">
                                             <option selected>Given</option>
                                             <option>When</option>
                                             <option>Then</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-10">
-                                        <input type="text" class="form-control" id="jenisScenario2" name="jenisScenario2" placeholder="Enter User Scenario">
+                                        <input type="text" class="form-control" id="content" name="content" placeholder="Enter User Scenario">
                                         <small id="jenisScenario2" class="form-text text-muted">Ex: "I click on Play button"</small>
                                     </div>
                                     <div class="form-group col-md-2">
-                                        <select id="userScenario3" class="form-control">
+                                        <select id="userScenario3" class="form-control" name="tipe">
                                             <option selected>Given</option>
                                             <option>When</option>
                                             <option>Then</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-10">
-                                        <input type="text" class="form-control" id="jenisScenario3" name="jenisScenario3" placeholder="Enter User Scenario">
+                                        <input type="text" class="form-control" id="content" name="content" placeholder="Enter User Scenario">
                                         <small id="jenisScenario3" class="form-text text-muted">Ex: "The System should display Tutorial"</small>
                                     </div>
                                 </div>

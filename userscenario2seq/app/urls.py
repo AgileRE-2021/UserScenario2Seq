@@ -29,13 +29,13 @@ urlpatterns = [
     path('list-project', views.listProject, name='list-project'),
     
     # Coba pakai id
-    path('detail-project/<int:project_id>', views.detailProject, name='detail-project'),
+    path('detail-project', views.detailProject, name='detail-project'),
 
     # # Edit Feature Page
     path('edit-feature/<int:project_id>/<int:feature_id>', views.editFeature, name='edit-feature'),
 
     # # Add Feature Page
-    path('add-feature/', views.addFeature, name='add-feature'),
+    path('add-feature', views.addFeature, name='add-feature'),
     path('add-feature/hasil', views.hasil, name='hasil'),
     path('__debug__/', include(debug_toolbar.urls)),
 

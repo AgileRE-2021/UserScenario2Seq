@@ -61,12 +61,12 @@ def listProject(request):
     return render(request, 'main/list-project.html', {'context': context})
 
 @login_required(login_url="/login/")
-def detailProject(request, project_id):
+def detailProject(request):
     
     context = {}
-    context['id'] = project_id
     context['name'] = "Ini nama project"
-    context['array'] = [project_id, "Ini nama project"]
+    context['hasil'] = feature.objects.all()
+    context['hasil1'] = feature.objects.all()
 
     '''
     context = {
@@ -82,10 +82,8 @@ def detailProject(request, project_id):
 @login_required(login_url="/login/")
 def addFeature(request):
     
-    id_feature = request.POST.get("id_feature")
-    feature_name = request.POST.get("feature_name")
-    user_story = request.POST.get("user_story")
-    id_scenario  = request.POST.get("id_scenario")
+    featureName = request.POST.get("feature_name")
+    userStory = request.POST.get("user_story")
     tipe = request.POST.get("tipe")
     content  = request.POST.get("content")
   
