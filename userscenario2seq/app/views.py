@@ -64,9 +64,7 @@ def listProject(request):
 def detailProject(request):
     
     context = {}
-    context['name'] = "Ini nama project"
     context['hasil'] = feature.objects.all()
-    context['hasil1'] = feature.objects.all()
 
     '''
     context = {
@@ -94,8 +92,7 @@ def addFeature(request):
 def hasil(request):
     
     context = {}
-    context['hasil'] = feature.feature_name.objects.all()
-    context['hasil1'] = feature.user_story.objects.all()
+    context['hasil'] = feature.objects.all()
   
     #html_template = loader.get_template( 'main/detail-project.html' )
     return render(request, 'main/hasil.html', {'context': context})
