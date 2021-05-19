@@ -64,7 +64,7 @@ def listProject(request):
 def detailProject(request):
     
     context = {}
-    context['hasil'] = feature.objects.all()
+    context['segment'] = 'detailProject'
 
     '''
     context = {
@@ -80,11 +80,6 @@ def detailProject(request):
 @login_required(login_url="/login/")
 def addFeature(request):
     
-    featureName = request.POST.get("featureName")
-    userStory = request.POST.get("userStory")
-    tipe = request.POST.get("tipe")
-    content  = request.POST.get("content")
-  
     #html_template = loader.get_template( 'main/detail-project.html' )
     return render(request, 'main/add-feature.html')
 
@@ -92,10 +87,17 @@ def addFeature(request):
 def hasil(request):
     
     context = {}
-    context['hasil'] = feature.objects.all()
+    context['featureName'] = request.POST.get("featureName")
+    context['userStory'] = request.POST.get("userStory")
+    context['tipe1'] = request.POST.get("tipe1")
+    context['content1']  = request.POST.get("content1")
+    context['tipe2'] = request.POST.get("tipe2")
+    context['content2']  = request.POST.get("content2")
+    context['tipe3'] = request.POST.get("tipe3")
+    context['content3']  = request.POST.get("content3")
   
     #html_template = loader.get_template( 'main/detail-project.html' )
-    return render(request, 'main/hasil.html', {'context': context})
+    return render(request, 'main/hasil.html',  {'context': context})
 
 @login_required(login_url="/login/")
 def editFeature(request, project_id, feature_id):
