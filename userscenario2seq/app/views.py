@@ -97,7 +97,7 @@ def detailProject(request, project_id):
 def addFeature(request):
 
     #html_template = loader.get_template( 'main/detail-project.html' )
-    return render(request, 'main/add-feature.html', {'context': context})
+    return render(request, 'main/add-feature.html')
 
 @login_required(login_url="/login/")
 def editFeature(request, project_id, feature_id):
