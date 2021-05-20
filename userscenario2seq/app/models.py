@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 
 class project(models.Model):
     id_project = models.IntegerField(default=0)
+    id_user = models.IntegerField(default=0)
     project_name = models.CharField(max_length=20)
     project_desc = models.TextField()
     date_created = models.DateTimeField ()
