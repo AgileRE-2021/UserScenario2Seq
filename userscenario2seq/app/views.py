@@ -76,7 +76,7 @@ def deleteProject(request, project_id):
 
 
 @login_required(login_url="/login/")
-def detailProject(request, project_id):
+def detailProject(request):
     
     context = {}
     #project_to_edit = get_object_or_404(project, pk=project_id)
