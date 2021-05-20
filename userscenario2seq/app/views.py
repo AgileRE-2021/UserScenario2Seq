@@ -5,7 +5,6 @@ Copyright (c) 2019 - present AppSeed.us
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.models import User
 from django.template import loader
 from django.http import HttpResponse
 from .models import *
@@ -59,9 +58,7 @@ def listProject(request):
     
     context = {}
     context['segment'] = 'listProject'
-
-    context['project'] = project.objects.filter(id_user=request.user.id)
-    context['user'] = request.user
+    context['project'] = project.objects.all()
 
     return render(request, 'main/list-project.html', {'context': context})
 
@@ -87,6 +84,7 @@ def addFeature(request):
     
     #html_template = loader.get_template( 'main/detail-project.html' )
     return render(request, 'main/add-feature.html')
+
 
 @login_required(login_url="/login/")
 def hasil(request):
