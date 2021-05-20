@@ -74,9 +74,14 @@ def deleteProject(request, project_id):
 def detailProject(request, project_id):
     
     context = {}
-    context['id'] = project_id
-    context['name'] = "Ini nama project"
-    context['array'] = [project_id, "Ini nama project"]
+    context['featureName'] = request.POST.get("featureName")
+    context['userStory'] = request.POST.get("userStory")
+    context['tipe1'] = request.POST.get("tipe1")
+    context['content1']  = request.POST.get("content1")
+    context['tipe2'] = request.POST.get("tipe2")
+    context['content2']  = request.POST.get("content2")
+    context['tipe3'] = request.POST.get("tipe3")
+    context['content3']  = request.POST.get("content3")
 
     '''
     context = {
@@ -90,11 +95,8 @@ def detailProject(request, project_id):
     #return HttpResponse(html_template.render(context, request))
 
 @login_required(login_url="/login/")
-def addFeature(request, project_id):
-    
-    context = {}
-    context['id'] = project_id
-  
+def addFeature(request):
+
     #html_template = loader.get_template( 'main/detail-project.html' )
     return render(request, 'main/add-feature.html', {'context': context})
 
