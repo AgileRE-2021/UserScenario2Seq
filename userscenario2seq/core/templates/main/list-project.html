@@ -38,12 +38,16 @@
                                             <td>{{ p.date_created }}</td>
                                             <td>{{ p.last_updated }}</td>
                                             <td>
-                                                <button class="btn btn-primary">
-                                                    Detail
-                                                </button>
-                                                <button class="btn btn-danger">
-                                                    Delete
-                                                </button>
+                                                <a href="detail-project/{{ p.id_project }}">
+                                                    <button class="btn btn-primary">
+                                                        Detail
+                                                    </button>
+                                                </a>
+                                                <a href="delete-project/{{ p.id_project }}">
+                                                    <button class="btn btn-danger">
+                                                        Delete
+                                                    </button>
+                                                </a>
                                             </td>
                                         </tr>
                                         <p>{{ p.project_name }}</p>

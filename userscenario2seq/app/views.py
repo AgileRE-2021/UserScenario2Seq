@@ -62,6 +62,12 @@ def listProject(request):
     return render(request, 'main/list-project.html', {'context': context})
 
 @login_required(login_url="/login/")
+def deleteProject(request, project_id):
+    project_to_delete = get_object_or_404(project, pk=project_id).delete()
+    return redirect('list-project')
+
+
+@login_required(login_url="/login/")
 def detailProject(request, project_id):
     
     context = {}
