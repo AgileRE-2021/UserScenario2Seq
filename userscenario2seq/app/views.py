@@ -59,7 +59,9 @@ def listProject(request):
     
     context = {}
     context['segment'] = 'listProject'
-    context['project'] = project.objects.all()
+
+    context['project'] = project.objects.filter(id_user=request.user.id)
+    context['user'] = request.user
 
     context['project'] = project.objects.filter(id_user=request.user.id)
     context['user'] = request.user
