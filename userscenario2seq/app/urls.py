@@ -3,9 +3,7 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
-from django.urls import path, re_path, include
-import debug_toolbar
-
+from django.urls import path, re_path
 from app import views
 
 urlpatterns = [
@@ -27,15 +25,18 @@ urlpatterns = [
     
     # # List Project Page
     path('list-project', views.listProject, name='list-project'),
+
+    # Delete Project
+    path('delete-project/<int:project_id>', views.deleteProject, name='delete-project'),
     
     # Coba pakai id
-    path('detail-project', views.detailProject, name='detail-project'),
+    path('detail-project/<int:project_id>', views.detailProject, name='detail-project'),
 
     # # Edit Feature Page
     path('edit-feature/<int:project_id>/<int:feature_id>', views.editFeature, name='edit-feature'),
 
     # # Add Feature Page
-    path('add-feature', views.addFeature, name='add-feature'),
+    path('add-feature/<int:project_id>', views.addFeature, name='add-feature'),
 
     # Matches any html file
     re_path(r'^.*\.*', views.pages, name='pages'),
