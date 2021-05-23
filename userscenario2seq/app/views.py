@@ -5,9 +5,11 @@ Copyright (c) 2019 - present AppSeed.us
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.models import User
 from django.template import loader
 from django.http import HttpResponse
 from django import template
+from app.models import project, feature, scenario
 
 
 @login_required(login_url="/login/")
@@ -59,7 +61,16 @@ def listProject(request):
     context = {}
     context['segment'] = 'listProject'
 
+    context['project'] = project.objects.filter(id_user=request.user.id)
+    context['user'] = request.user
+
     return render(request, 'main/list-project.html', {'context': context})
+
+@login_required(login_url="/login/")
+def deleteProject(request, project_id):
+    project_to_delete = get_object_or_404(project, pk=project_id).delete()
+    return redirect('list-project')
+
 
 @login_required(login_url="/login/")
 def detailProject(request, project_id):

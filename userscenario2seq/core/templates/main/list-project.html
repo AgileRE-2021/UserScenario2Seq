@@ -6,38 +6,63 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}	
-
-    <!-- [ Main Content ] start -->
-    <div class="row">
-        <!-- [ fixed-layout ] start -->
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Feature</h5>
-                </div>
-                <div class="card-body">
-                    <p>Tutorial</p>
-                    <div class="alert alert-info mb-0" role="alert">
-                        <p class="mb-0">Tutorial adalah</p>
+<div class="pcoded-main-container">
+    <div class="pcoded-content">
+        <!-- [ Main Content ] start -->
+        <div class="row">
+            <!-- [ fixed-layout ] start -->
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>List Project</h3>
                     </div>
-                </div>
-                <div class="card-body">
-                    <p>Create Project</p>
-                    <div class="alert alert-info mb-0" role="alert">
-                        <p class="mb-0">Create Project adalah</p>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p>View Project</p>
-                    <div class="alert alert-info mb-0" role="alert">
-                        <p class="mb-0">View Project adalah</p>
+                    <div class="card-body">
+                        <p>Halaman ini berisikan seluruh project yang sudah dibuat.</p>
+                        <hr>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Project Name</th>
+                                        <th>Date Created</th>
+                                        <th>Last Updated</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for p in context.project %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ p.project_name }}</td>
+                                            <td>{{ p.date_created }}</td>
+                                            <td>{{ p.last_updated }}</td>
+                                            <td>
+                                                <a href="detail-project/{{ p.id_project }}">
+                                                    <button class="btn btn-primary">
+                                                        Detail
+                                                    </button>
+                                                </a>
+                                                <a href="delete-project/{{ p.id_project }}">
+                                                    <button class="btn btn-danger">
+                                                        Delete
+                                                    </button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <p>{{ p.project_name }}</p>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!-- [ fixed-layout ] end -->
         </div>
-        <!-- [ fixed-layout ] end -->
-    </div>
     <!-- [ Main Content ] end -->
+    </div>
+</div>
 
 {% endblock content %}
 

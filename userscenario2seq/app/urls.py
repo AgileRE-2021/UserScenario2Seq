@@ -25,6 +25,9 @@ urlpatterns = [
     
     # # List Project Page
     path('list-project', views.listProject, name='list-project'),
+
+    # Delete Project
+    path('delete-project/<int:project_id>', views.deleteProject, name='delete-project'),
     
     # Coba pakai id
     path('detail-project/<int:project_id>', views.detailProject, name='detail-project'),
