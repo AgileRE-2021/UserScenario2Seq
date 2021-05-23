@@ -10,42 +10,33 @@
     <!-- [ Main Content ] start -->
     <div class="pcoded-main-container">
         <div class="pcoded-content">
-            <!-- [ breadcrumb ] start -->
-            <!-- <div class="page-header">
-                <div class="page-block">
-                    <div class="row align-items-center">
-                        <div class="col-md-12">
-                            <div class="page-header-title">
-                                <h5 class="m-b-10">Dashboard Analytics</h5>
-                            </div>
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                                <li class="breadcrumb-item"><a href="#!">Dashboard Analytics</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            <!-- [ breadcrumb ] end -->
-            <!-- [ Main Content ] start -->
             <div class="row">
-               <div class="col-md-12">
+               <div class="col-sm-12">
                     <div class="card">
-                        <h5 class="card-header">{{ request.path }}</h5>
-                        <h5 class="card-header">{{ context }}</h5>
-                        <h5 class="card-header">{{ context.array }}</h5>
                         <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#!" class="btn  btn-primary">Go somewhere</a>
+                            <h5>Create Project</h5>
+                            <hr>
+                            <form method="POST" enctype="multipart/form-data" class="post-form" action="/list-project">
+                                {% csrf_token %}
+                                <div class="form-group ">  
+                                    <h6>Project Name</h6>
+                                     <input type="text" class="form-control" name="project_name" id="projec_tName" placeholder="Enter Project Name">
+            
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1"><h6>Project Description</h6></label>
+                                    <textarea class="form-control" name="project_desc" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    </div>
+                                
+                                <button type="button" class="btn  btn-danger">Cancel</button>
+                                <button type="submit" class="btn  btn-primary">Next</button>
+                            </form>
                         </div>
                     </div>
                </div>
             </div>
-            <!-- [ Main Content ] end -->
         </div>
     </div>
-    <!-- [ Main Content ] end -->
 
 {% endblock content %}
 

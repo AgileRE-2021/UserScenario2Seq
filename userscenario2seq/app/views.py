@@ -12,6 +12,7 @@ from django import template
 from app.models import project, feature, scenario
 from django.utils import timezone
 
+
 @login_required(login_url="/login/")
 def index(request):
     
@@ -49,10 +50,11 @@ def tutorial(request):
 @login_required(login_url="/login/")
 def createProject(request):
     
-    context = {}
-    context['segment'] = 'createProject'
+    project_name = request.POST.get("project_name")
+    project_desc = request.POST.get("project_desc")
+    content  = request.POST.get("content")
 
-    return render(request, 'main/create-project.html', {'context': context})
+    return render(request, 'main/create-project.html')
 
 @login_required(login_url="/login/")
 def listProject(request):
