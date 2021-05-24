@@ -41,12 +41,14 @@
                         {% csrf_token %}
                         <div class="form-group ">  
                             <h6>Project Name</h6>
-                             <input type="text" class="form-control" name="project_name" id="projec_tName" placeholder="Enter Project Name">
-    
+                             <input type="text" class="form-control" name="project_name" id="projec_tName" placeholder="Enter Project Name" required>
+                             <div class="invalid-feedback">
+                                Please choose a username.
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1"><h6>Project Description</h6></label>
-                            <textarea class="form-control" name="project_desc" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <textarea class="form-control" name="project_desc" id="exampleFormControlTextarea1" rows="3" required></textarea>
                             </div>
                         
                         <button type="button" class="btn  btn-danger">Cancel</button>
