@@ -37,6 +37,7 @@ urlpatterns = [
 
     # # Add Feature Page
     path('add-feature/<int:project_id>', views.addFeature, name='add-feature'),
+    path('add-feature/store', views.addFeatureHasil, name='add-feature-hasil'),
 
     # Matches any html file
     re_path(r'^.*\.*', views.pages, name='pages'),

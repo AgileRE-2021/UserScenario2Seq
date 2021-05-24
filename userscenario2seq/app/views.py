@@ -76,7 +76,7 @@ def deleteProject(request, project_id):
 
 
 @login_required(login_url="/login/")
-def detailProject(request):
+def detailProject(request, project_id):
     
     context = {}
     #project_to_edit = get_object_or_404(project, pk=project_id)
@@ -95,24 +95,85 @@ def detailProject(request):
 def addFeature(request, project_id):
     
     context = {}
-    context['id'] = project_id
+    context['project_id'] = project_id
+    context['project'] = get_object_or_404(project, pk=project_id)
   
     #html_template = loader.get_template( 'main/detail-project.html' )
     return render(request, 'main/add-feature.html', {'context': context})
 
 @login_required(login_url="/login/")
+def addFeatureHasil(request):
+    
+    getProject = get_object_or_404(project, pk=request.POST.get("project_id"))
+    featureName = request.POST.get("featureName")
+    userStory = request.POST.get("userStory")
+    dateCreated = timezone.now()
+    lastUpdated = timezone.now()
+    tipe1 = request.POST.get("tipe1")
+    content1  = request.POST.get("content1")
+    tipe2 = request.POST.get("tipe2")
+    content2  = request.POST.get("content2")
+    tipe3 = request.POST.get("tipe3")
+    content3  = request.POST.get("content3")
+    
+    #create feature baru
+    newFeature = feature(project=getProject
+                        ,feature_name=featureName
+                        ,user_story=userStory
+                        ,date_created=dateCreated
+                        ,last_updated=lastUpdated)
+
+    #save feature baru
+    newFeature.save()
+
+    #get feature terbaru
+    getFeature = feature.objects.filter(project=getProject).order_by('-date_created')[0]
+
+    #create scenario form
+    newScenario1 = scenario(feature=getFeature
+                        ,tipe=tipe1
+                        ,content=content1
+                        ,date_created=dateCreated
+                        ,last_updated=lastUpdated)
+
+    #save scenario baru
+    newScenario1.save()
+
+    newScenario2 = scenario(feature=getFeature
+                        ,tipe=tipe2
+                        ,content=content2
+                        ,date_created=dateCreated
+                        ,last_updated=lastUpdated)
+
+    #save scenario baru
+    newScenario2.save()
+
+    newScenario3 = scenario(feature=getFeature
+                        ,tipe=tipe3
+                        ,content=content3
+                        ,date_created=dateCreated
+                        ,last_updated=lastUpdated)
+
+    #save scenario baru
+    newScenario3.save()
+  
+    #html_template = loader.get_template( 'main/detail-project.html' )
+    return redirect('detail-project', project_id=request.POST.get("project_id"))
+
+@login_required(login_url="/login/")
 def editFeature(request, project_id, feature_id):
     
     context = {}
-    
-    #feature_to_update = get_object_or_404(feature, pk=feature_id)
-    #scenarios = feature.objects.filter(feature = feature_to_update)
-    #for s in scenarios: 
-        #s.content = request.
-    
-    #context['idProject'] = project_id
-    #context['idFeature'] = feature_id
-  
+    context['project_id'] = project_id
+    context['project'] = get_object_or_404(project, pk=project_id)
+
+    #mengambil feature
+    context['feature_id'] = feature_id
+    context['feature'] = get_object_or_404(feature, pk=feature_id)
+
+    #mengambil scenario
+    context['scenarios'] = scenario.objects.filter(feature=context['feature'])
+
     #html_template = loader.get_template( 'main/detail-project.html' )
     return render(request, 'main/edit-feature.html', {'context': context})
 

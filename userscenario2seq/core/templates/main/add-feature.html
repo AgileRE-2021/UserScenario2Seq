@@ -15,9 +15,12 @@
                     <div class="card">
                         <div class="card-body">
                             <h5>Add Feature</h5>
+                            <p>{{ context.project.project_name }}</p>
+                            <p>{{ context.project.project_desc }}</p>
                             <hr>
-                            <form method="POST" enctype="multipart/form-data" class="post-form" action="/detail-project/">
+                            <form method="POST" enctype="multipart/form-data" class="post-form" action="/add-feature/store">
                                 {% csrf_token %}
+                                <input type="hidden" name="project_id" id="project_id" value="{{ context.project_id }}">
                                 <div class="form-group">
                                     <h6>Feature Name</h6>
                                     <input type="text" class="form-control" name="featureName" id="featureName" placeholder="Enter Feature Name">
