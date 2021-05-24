@@ -28,6 +28,8 @@ class scenario(models.Model):
     id_scenario = models.AutoField(primary_key=True)
     tipe = models.CharField(max_length=25)
     content = models.CharField(max_length=75)
+    date_created = models.DateTimeField()
+    last_updated = models.DateTimeField()
 
 # Create your models here.
 
