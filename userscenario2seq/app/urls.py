@@ -19,6 +19,9 @@ urlpatterns = [
     
     # # Create Project Page
     path('create-project', views.createProject, name='create-project'),
+
+    # # Create Project Page
+    path('create-project/store', views.createProjectStore, name='create-project-store'),
     
     # # Tutorial page
     path('tutorial', views.tutorial, name='tutorial'),

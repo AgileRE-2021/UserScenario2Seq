@@ -50,11 +50,24 @@ def tutorial(request):
 @login_required(login_url="/login/")
 def createProject(request):
     
-    project_name = request.POST.get("project_name")
-    project_desc = request.POST.get("project_desc")
-    content  = request.POST.get("content")
-
     return render(request, 'main/create-project.html')
+
+@login_required(login_url="/login/")
+def createProjectStore(request):
+
+    projectName= request.POST.get("project_name")
+    projectDesc= request.POST.get("project_desc")
+    date_created=timezone.now()
+    last_updated=timezone.now()
+
+    createProject = project(id_user=request.user.id
+                    ,project_name=projectName
+                    ,project_desc=projectDesc
+                    ,date_created=date_created
+                    ,last_updated=last_updated)
+
+    createProject.save()
+    return redirect ('list-project')
 
 @login_required(login_url="/login/")
 def listProject(request):
