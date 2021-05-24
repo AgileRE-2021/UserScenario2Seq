@@ -15,7 +15,7 @@ urlpatterns = [
     path('main', views.mainIndex, name='index'),
 
     # # Fitur page
-    path('fitur', views.mainFitur, name='fitur'),
+    path('help-and-documentation', views.helpAndDocumentation, name='help-and-documentation'),
     
     # # Create Project Page
     path('create-project', views.createProject, name='create-project'),

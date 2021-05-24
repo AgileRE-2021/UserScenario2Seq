@@ -32,12 +32,12 @@ def mainIndex(request):
     return HttpResponse(html_template.render(context, request))
 
 @login_required(login_url="/login/")
-def mainFitur(request):
+def helpAndDocumentation(request):
     
     context = {}
     context['segment'] = 'fitur'
 
-    return render(request, 'main/fitur.html', {'context': context})
+    return render(request, 'main/help-and-documentation.html', {'context': context})
 
 @login_required(login_url="/login/")
 def tutorial(request):
