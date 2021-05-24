@@ -30,13 +30,13 @@ urlpatterns = [
     path('delete-project/<int:project_id>', views.deleteProject, name='delete-project'),
     
     # Coba pakai id
-    path('detail-project/', views.detailProject, name='detail-project'),
+    path('detail-project/<int:project_id>', views.detailProject, name='detail-project'),
 
     # # Edit Feature Page
     path('edit-feature/<int:project_id>/<int:feature_id>', views.editFeature, name='edit-feature'),
 
     # # Add Feature Page
-    path('add-feature/', views.addFeature, name='add-feature'),
+    path('add-feature/<int:project_id>', views.addFeature, name='add-feature'),
 
     # Matches any html file
     re_path(r'^.*\.*', views.pages, name='pages'),
