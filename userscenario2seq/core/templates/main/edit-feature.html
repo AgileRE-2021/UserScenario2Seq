@@ -17,7 +17,7 @@
                             <h5>Add Feature</h5>
                             <p>{{ context.project.project_name }}</p>
                             <hr>
-                            <form method="POST" enctype="multipart/form-data" class="post-form" action="/add-feature/store">
+                            <form method="POST" enctype="multipart/form-data" class="post-form" action="/edit-feature/update">
                                 {% csrf_token %}
                                 <input type="hidden" name="project_id" id="project_id" value="{{ context.project_id }}">
                                 <div class="form-group">
@@ -34,6 +34,7 @@
                                         <h6>User Scenario</h6>
                                     </div>
                                     {% for p in context.scenarios %}
+                                    <input type="hidden" name="scenario_id{{forloop.counter}}" id="scenario_id" value="{{ p.scenario_id }}">
                                     <div class="form-group col-md-2">
                                         <select id="userScenario1" class="form-control" name="tipe{{forloop.counter}}" value="{{ p.tipe }}">
                                             {% if p.tipe == "Given"  %}

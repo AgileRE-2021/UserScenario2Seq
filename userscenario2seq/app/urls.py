@@ -34,6 +34,7 @@ urlpatterns = [
 
     # # Edit Feature Page
     path('edit-feature/<int:project_id>/<int:feature_id>', views.editFeature, name='edit-feature'),
+    path('edit-feature/update', views.updateFeature, name='edit-feature'),
 
     # # Add Feature Page
     path('add-feature/<int:project_id>', views.addFeature, name='add-feature'),

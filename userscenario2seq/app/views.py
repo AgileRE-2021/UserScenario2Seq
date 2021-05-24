@@ -178,6 +178,42 @@ def editFeature(request, project_id, feature_id):
     return render(request, 'main/edit-feature.html', {'context': context})
 
 @login_required(login_url="/login/")
+def updateFeature(request):
+    
+    project_to_edit = get_object_or_404(project, pk=request.POST.get("project_id"))
+    feature_to_edit = get_object_or_404(feature, pk=request.POST.get("feature_id"))
+    featureName = request.POST.get("featureName")
+    userStory = request.POST.get("userStory")
+    dateCreated = timezone.now()
+    lastUpdated = timezone.now()
+    tipe1 = request.POST.get("tipe1")
+    content1  = request.POST.get("content1")
+    tipe2 = request.POST.get("tipe2")
+    content2  = request.POST.get("content2")
+    tipe3 = request.POST.get("tipe3")
+    content3  = request.POST.get("content3")
+
+    #update feature baru
+    feature_to_edit.feature_name = featureName
+    feature_to_edit.user_story = userStory
+    feature_to_edit.last_updated = lastUpdated
+
+    #save feature baru
+    feature_to_edit.save()
+
+    scenario_to_edit1 = scenario.objects.filter(feature=feature_to_edit).update(tipe=tipe1, content=content1)
+    scenario_to_edit1.save()
+
+    scenario_to_edit2 = scenario.objects.filter(feature=feature_to_edit).update(tipe=tipe2, content=content2)
+    scenario_to_edit2.save()
+
+    scenario_to_edit3 = scenario.objects.filter(feature=feature_to_edit).update(tipe=tipe3, content=content3)
+    scenario_to_edit3.save()
+
+    #html_template = loader.get_template( 'main/detail-project.html' )
+    return redirect('detail-project',  project_id=request.POST.get("project_id"))
+
+@login_required(login_url="/login/")
 def pages(request):
     context = {}
     # All resource paths end in .html.
