@@ -22,12 +22,12 @@
                                 <input type="hidden" name="project_id" id="project_id" value="{{ context.project_id }}">
                                 <div class="form-group">
                                     <h6>Feature Name</h6>
-                                    <input type="text" class="form-control" name="featureName" id="featureName" placeholder="Enter Feature Name">
+                                    <input type="text" class="form-control" name="featureName" id="featureName" placeholder="Enter Feature Name" required>
                                 </div>
                                 <div class="form-group">
                                     <h6>User Story</h6>
-                                    <input type="text" class="form-control" id="userStory" name="userStory" placeholder="Enter User Story">
-                                    <small id="userStory" class="form-text text-muted">Format: As a [role], I want to [action], so that I [benefit]</small>
+                                    <input type="text" class="form-control" id="userStory" name="userStory" placeholder="Enter User Story" required>
+                                    <small id="userStory" class="form-text text-muted">Format: As a #role#, I want to #action#, so that I #benefit#</small>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
@@ -68,14 +68,14 @@
                                     </div>
                                     {% for p in context.scenarios_count %}
                                         <div class="form-group col-md-2">
-                                            <select class="form-control" name="tipe{{ p }}">
+                                            <select class="form-control" name="tipe{{ p }}" required>
                                                     <option selected>Given</option>
                                                     <option>When</option>
                                                     <option>Then</option>
                                             </select>
                                         </div>
                                         <div class="form-group col-md-10">
-                                            <input type="text" class="form-control" name="content{{ p }}" placeholder="Fill the scenario here">
+                                            <input type="text" class="form-control" name="content{{ p }}" placeholder="Fill the scenario here" required>
                                             <!--<small id="jenisScenario1" class="form-text text-muted">Ex: "I go to URL", "Im on Layout"</small>-->
                                         </div>
                                         {% if p == context.count|add:"-1" %}
@@ -98,7 +98,9 @@
                                         {% endif %}
                                     {% endfor %}
                                 </div>
-                                <button type="button" class="btn  btn-danger">Cancel</button>
+                                <a href="/detail-project/{{ context.project_id }}">
+                                    <button type="button" class="btn  btn-danger">Cancel</button>  
+                                </a>  
                                 <button type="submit" class="btn  btn-primary">Submit</button>
                             </form>
                         </div>
@@ -107,7 +109,6 @@
             </div>
         </div>
     </div>
-
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->

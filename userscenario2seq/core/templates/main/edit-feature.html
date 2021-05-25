@@ -23,11 +23,11 @@
                                 <input type="hidden" name="project_id" id="project_id" value="{{ context.project_id }}">
                                 <div class="form-group">
                                     <h6>Feature Name</h6>
-                                    <input type="text" class="form-control" name="featureName" id="featureName" value="{{ context.feature.feature_name }}">
+                                    <input type="text" class="form-control" name="featureName" id="featureName" value="{{ context.feature.feature_name }}" required>
                                 </div>
                                 <div class="form-group">
                                     <h6>User Story</h6>
-                                    <input type="text" class="form-control" id="userStory" name="userStory" value="{{ context.feature.user_story }}">
+                                    <input type="text" class="form-control" id="userStory" name="userStory" value="{{ context.feature.user_story }}" required>
                                     <small id="userStory" class="form-text text-muted">Format: As a [role], I want to [action], so that I [benefit]</small>
                                 </div>
                                 <div class="form-row">
@@ -37,7 +37,7 @@
                                     {% for p in context.scenarios %}
                                     <input type="hidden" name="scenario_id{{forloop.counter}}" value="{{ p.id_scenario }}">
                                     <div class="form-group col-md-2">
-                                        <select class="form-control" name="tipe{{forloop.counter}}" value="{{ p.tipe }}">
+                                        <select class="form-control" name="tipe{{forloop.counter}}" value="{{ p.tipe }}" required>
                                             {% if p.tipe == "Given"  %}
                                                 <option selected>Given</option>
                                                 <option>When</option>
@@ -54,13 +54,15 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-10">
-                                        <input type="text" class="form-control" name="content{{forloop.counter}}" value="{{ p.content }}">
+                                        <input type="text" class="form-control" name="content{{forloop.counter}}" value="{{ p.content }}" required>
                                         <small class="form-text text-muted">Ex: "I go to URL", "Im on Layout"</small>
                                     </div>
                                     {% endfor %}
                                 </div>
-                                <button type="button" class="btn  btn-danger">Cancel</button>
-                                <button type="submit" class="btn  btn-primary">Submit</button>
+                                <a href="/detail-project/{{ context.project_id }}">
+                                    <button type="button" class="btn  btn-danger">Cancel</button>  
+                                </a>  
+                                <button type="submit" class="btn  btn-primary">Save</button>
                             </form>
                         </div>
                     </div>

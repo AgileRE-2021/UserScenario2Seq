@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #'mathfilters',
+    #'debug_toolbar',
     'app',  # Enable the inner app 
 ]
 

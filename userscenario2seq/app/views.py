@@ -47,6 +47,27 @@ def tutorial(request):
     return render(request, 'main/tutorial.html', {'context': context})
 
 @login_required(login_url="/login/")
+def listProject(request):
+    
+    context = {}
+    context['search'] = ""
+    if(request.method == 'GET' and 'search' in request.GET):
+        search = request.GET['search']
+        if(search == ''):
+            context['project'] = project.objects.filter(id_user=request.user.id) #ambil record project dari model
+        else:
+            context['project'] = project.objects.filter(id_user=request.user.id).filter(project_name__contains=search) #ambil record project dari model
+            context['search'] = search
+        #request.user adalah user yang sedang login
+    else: 
+        context['project'] = project.objects.filter(id_user=request.user.id) #ambil record project dari model
+    
+    context['user'] = request.user
+    #segment, user, dan project adalah key dari object context
+
+    return render(request, 'main/list-project.html', {'context': context})
+
+@login_required(login_url="/login/")
 def createProject(request):
     
     return render(request, 'main/create-project.html')
@@ -69,78 +90,54 @@ def createProjectStore(request):
     return redirect ('list-project')
 
 @login_required(login_url="/login/")
-def listProject(request):
-    
-    context = {}
-    
-    context['segment'] = 'listProject'
-    
-    context['project'] = project.objects.filter(id_user=request.user.id) #ambil record project dari model
-    #request.user adalah user yang sedang login
-    
-    context['user'] = request.user
-    #segment, user, dan project adalah key dari object context
-
-    return render(request, 'main/list-project.html', {'context': context})
-
-@login_required(login_url="/login/")
 def deleteProject(request, project_id):
     project_to_delete = get_object_or_404(project, pk=project_id).delete()
     return redirect('list-project') #list-project adalah name dari url
 
+@login_required(login_url="/login/")
+def deleteFeature(request, feature_id,project_id):
+    feature_to_delete = get_object_or_404(feature, pk=feature_id).delete()
+    return redirect('detail-project', project_id=project_id)
 
 @login_required(login_url="/login/")
-def tutorial(request):
-    
+def detailProject(request,project_id):
     context = {}
-    context['segment'] = 'tutorial'
-
-    return render(request, 'main/tutorial.html', {'context': context})
-
-@login_required(login_url="/login/")
-def createProject(request):
-    
-    context = {}
-    context['segment'] = 'createProject'
-
-    return render(request, 'main/create-project.html', {'context': context})
-
-@login_required(login_url="/login/")
-def listProject(request):
-    
-    context = {}
-    
-    context['segment'] = 'listProject'
-    
-    context['project'] = project.objects.filter(id_user=request.user.id) #ambil record project dari model
-    #request.user adalah user yang sedang login
-    
-    context['user'] = request.user
-    #segment, user, dan project adalah key dari object context
-
-    return render(request, 'main/list-project.html', {'context': context})
-
-@login_required(login_url="/login/")
-def deleteProject(request, project_id):
-    project_to_delete = get_object_or_404(project, pk=project_id).delete()
-    return redirect('list-project') #list-project adalah name dari url
-
-
-@login_required(login_url="/login/")
-def detailProject(request, project_id):
-    
-    context = {}
-    #project_to_edit = get_object_or_404(project, pk=project_id)
-
-    #project_to_edit.project_desc = "ini deskripsi baruu banget"
-    #project_to_edit.last_updated = timezone.now()
-    #project_to_edit.save()
-    
+    context['id_project'] = project_id
     context['project'] = get_object_or_404(project, pk=project_id)
+    context['search'] = ""
 
-    #html_template = loader.get_template( 'main/detail-project.html' )
+    if(request.method == 'GET' and 'search' in request.GET):
+        search = request.GET['search']
+        if(search == ''):
+            context['feature'] = feature.objects.filter(project=context['project'])
+        else:
+            context['feature'] = feature.objects.filter(project=context['project']).filter(feature_name__contains=search)
+            context['search'] = search
+        #request.user adalah user yang sedang login
+    else:
+        context['feature'] = feature.objects.filter(project=context['project'])
+
     return render(request, 'main/detail-project.html', {'context': context})
-    #return HttpResponse(html_template.render(context, request))
+    
+@login_required(login_url="/login/")
+def editProject(request, project_id):
+    context = {}
+    context['id_project'] = project_id
+    context['project'] = get_object_or_404(project, pk=project_id)
+    return render(request, 'main/edit-project.html', {'context': context}) 
+
+@login_required(login_url="/login/")
+def updateProject(request):
+    context = {}
+    project_to_edit = get_object_or_404(project, pk=request.POST.get("project_id"))
+    projectName = request.POST.get("project_name")
+    projectDesc = request.POST.get("project_desc")
+    lastUpdated = timezone.now()
+    project_to_edit.project_name = projectName
+    project_to_edit.project_desc = projectDesc
+    project_to_edit.last_updated = timezone.now()
+    project_to_edit.save()
+    return redirect('detail-project', project_id=request.POST.get("project_id")) 
 
 @login_required(login_url="/login/")
 def addFeature(request, project_id, scenarios_count):
@@ -218,43 +215,6 @@ def addFeatureHasil(request):
                 newScenario.save()
                 tipe = False
                 content = False
-    
-    '''
-    tipe1 = request.POST.get("tipe1")
-    content1  = request.POST.get("content1")
-    tipe2 = request.POST.get("tipe2")
-    content2  = request.POST.get("content2")
-    tipe3 = request.POST.get("tipe3")
-    content3  = request.POST.get("content3")
-
-    #create scenario form
-    newScenario1 = scenario(feature=getFeature
-                        ,tipe=tipe1
-                        ,content=content1
-                        ,date_created=dateCreated
-                        ,last_updated=lastUpdated)
-
-    #save scenario baru
-    newScenario1.save()
-
-    newScenario2 = scenario(feature=getFeature
-                        ,tipe=tipe2
-                        ,content=content2
-                        ,date_created=dateCreated
-                        ,last_updated=lastUpdated)
-
-    #save scenario baru
-    newScenario2.save()
-
-    newScenario3 = scenario(feature=getFeature
-                        ,tipe=tipe3
-                        ,content=content3
-                        ,date_created=dateCreated
-                        ,last_updated=lastUpdated)
-
-    #save scenario baru
-    newScenario3.save()
-    '''
   
     #html_template = loader.get_template( 'main/detail-project.html' )
     return redirect('detail-project', project_id=request.POST.get("project_id"))
@@ -339,24 +299,6 @@ def updateFeature(request):
                     tipe = False
                     content = False
                     scenario_id = False
-
-    '''
-    tipe1 = request.POST.get("tipe1")
-    content1  = request.POST.get("content1")
-    tipe2 = request.POST.get("tipe2")
-    content2  = request.POST.get("content2")
-    tipe3 = request.POST.get("tipe3")
-    content3  = request.POST.get("content3")
-
-    scenario_to_edit1 = scenario.objects.filter(feature=feature_to_edit).update(tipe=tipe1, content=content1)
-    scenario_to_edit1.save()
-
-    scenario_to_edit2 = scenario.objects.filter(feature=feature_to_edit).update(tipe=tipe2, content=content2)
-    scenario_to_edit2.save()
-
-    scenario_to_edit3 = scenario.objects.filter(feature=feature_to_edit).update(tipe=tipe3, content=content3)
-    scenario_to_edit3.save()
-    '''
 
     #html_template = loader.get_template( 'main/detail-project.html' )
     return redirect('detail-project',  project_id=request.POST.get("project_id"))

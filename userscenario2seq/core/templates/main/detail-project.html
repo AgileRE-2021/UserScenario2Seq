@@ -11,36 +11,96 @@
     <div class="pcoded-main-container">
         <div class="pcoded-content">
             <!-- [ breadcrumb ] start -->
-            <!-- <div class="page-header">
+            <div class="page-header">
                 <div class="page-block">
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">Dashboard Analytics</h5>
+                                <h5 class="mb-3">{{context.project.project_name}}</h5>
+                                <p class="mb-3">{{context.project.project_desc}}</p>
+                                <a href="/edit-project/{{context.id_project}}">
+                                    <button class="btn btn-primary">
+                                        Edit Project
+                                    </button>
+                                </a>
+                                <hr>
                             </div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                                <li class="breadcrumb-item"><a href="#!">Dashboard Analytics</a></li>
+                                <li class="breadcrumb-item"><a href="#!"> List Project </a></li>
+                                <li class="breadcrumb-item"><a href="#!"> Detail Project </a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
             <!-- [ breadcrumb ] end -->
             <!-- [ Main Content ] start -->
             <div class="row">
                <div class="col-md-12">
-                    <div class="card">
-                        <h5 class="card-header">{{ request.path }}</h5>
-                        <h5 class="card-header">{{ context }}</h5>
-                        <h5 class="card-header">{{ context.featureName }}</h5>
-                        <h5 class="card-header">{{ context.userStory }}</h5>
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#!" class="btn  btn-primary">Go somewhere</a>
+                <div class="card">
+                    <div class="card-body">
+                        <a href="/add-feature/{{context.id_project}}/3">
+                            <button class="btn btn-primary">
+                                Add Feature
+                            </button>
+                        </a>
+                        <!-- Search -->
+                        <form method="GET" enctype="multipart/form-data" class="post-form mt-4" action="/detail-project/{{ context.id_project }}">
+                            {% csrf_token %}
+                            <div class="form-group "> 
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" name="search" value="{{ context.search }}" placeholder="Search project name"><br>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <button type="submit" class="btn btn-primary">Search</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                        </form>
+                        <hr>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Feature Name</th>
+                                        <th>Date Created</th>
+                                        <th>Last Updated</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for p in context.feature %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ p.feature_name }}</td>
+                                            <td>{{ p.date_created }}</td>
+                                            <td>{{ p.last_updated }}</td>
+                                            <td>
+                                                <a href="/edit-feature/{{ context.id_project}}/{{ p.id_feature }}">
+                                                    <button class="btn btn-primary">
+                                                        Edit
+                                                    </button>
+                                                </a>
+                                                <a href="/delete-feature/{{ context.id_project}}/{{ p.id_feature}}">
+                                                    <button class="btn btn-danger">
+                                                        Delete
+                                                    </button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                </div>
                </div>
             </div>
             <!-- [ Main Content ] end -->
