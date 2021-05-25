@@ -10,40 +10,76 @@
     <!-- [ Main Content ] start -->
     <div class="pcoded-main-container">
         <div class="pcoded-content">
-            <!-- [ breadcrumb ] start -->
-            <!-- <div class="page-header">
-                <div class="page-block">
-                    <div class="row align-items-center">
-                        <div class="col-md-12">
-                            <div class="page-header-title">
-                                <h5 class="m-b-10">Dashboard Analytics</h5>
-                            </div>
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                                <li class="breadcrumb-item"><a href="#!">Dashboard Analytics</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            <!-- [ breadcrumb ] end -->
-            <!-- [ Main Content ] start -->
             <div class="row">
-               <div class="col-md-12">
+               <div class="col-sm-12">
                     <div class="card">
-                        <h5 class="card-header">Featured</h5>
                         <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#!" class="btn  btn-primary">Go somewhere</a>
+                            <h5>Add Feature</h5>
+                            <p>{{ context.project.project_name }}</p>
+                            <p>{{ context.project.project_desc }}</p>
+                            <hr>
+                            <form method="POST" enctype="multipart/form-data" class="post-form" action="/add-feature/store">
+                                {% csrf_token %}
+                                <input type="hidden" name="project_id" id="project_id" value="{{ context.project_id }}">
+                                <div class="form-group">
+                                    <h6>Feature Name</h6>
+                                    <input type="text" class="form-control" name="featureName" id="featureName" placeholder="Enter Feature Name">
+                                </div>
+                                <div class="form-group">
+                                    <h6>User Story</h6>
+                                    <input type="text" class="form-control" id="userStory" name="userStory" placeholder="Enter User Story">
+                                    <small id="userStory" class="form-text text-muted">Format: As a [role], I want to [action], so that I [benefit]</small>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <h6>User Scenario</h6>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <select id="userScenario1" class="form-control" name="tipe1">
+                                            <option selected>Given</option>
+                                            <option>When</option>
+                                            <option>Then</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-10">
+                                        <input type="text" class="form-control" id="content" name="content1" placeholder="Enter User Scenario">
+                                        <small id="jenisScenario1" class="form-text text-muted">Ex: "I go to URL", "Im on Layout"</small>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <select id="userScenario2" class="form-control" name="tipe2">
+                                            <option selected>Given</option>
+                                            <option>When</option>
+                                            <option>Then</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-10">
+                                        <input type="text" class="form-control" id="content" name="content2" placeholder="Enter User Scenario">
+                                        <small id="jenisScenario2" class="form-text text-muted">Ex: "I click on Play button"</small>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <select id="userScenario3" class="form-control" name="tipe3">
+                                            <option selected>Given</option>
+                                            <option>When</option>
+                                            <option>Then</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-10">
+                                        <input type="text" class="form-control" id="content" name="content3" placeholder="Enter User Scenario">
+                                        <small id="jenisScenario3" class="form-text text-muted">Ex: "The System should display Tutorial"</small>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn  btn-danger">Cancel</button>
+                                <button type="submit" class="btn  btn-primary">Submit</button>
+                            </form>
+>>>>>>> 4205d106b736c50a7307bf9cd1af0bcd917e86af
                         </div>
                     </div>
                </div>
             </div>
-            <!-- [ Main Content ] end -->
+            
         </div>
     </div>
-    <!-- [ Main Content ] end -->
+>>>>>>> 4205d106b736c50a7307bf9cd1af0bcd917e86af
 
 {% endblock content %}
 

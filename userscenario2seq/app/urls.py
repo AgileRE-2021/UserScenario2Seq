@@ -23,12 +23,16 @@ urlpatterns = [
     # # Create Project Page
     path('create-project/store', views.createProjectStore, name='create-project-store'),
     
+    # # Create Project Page
+    path('create-project', views.createProject, name='create-project'),
+    
     # # Tutorial page
     path('tutorial', views.tutorial, name='tutorial'),
     
     # # List Project Page
     path('list-project', views.listProject, name='list-project'),
 
+<<<<<<< HEAD
     # # Edit Project Page
     path('edit-project/<int:user_id>/<int:project_id>', views.editFeature, name='edit-feature'),
 
@@ -43,9 +47,17 @@ urlpatterns = [
 
     # # Edit Feature Page
     path('edit-feature/<int:project_id>/<int:feature_id>', views.editFeature, name='edit-feature'),
+<<<<<<< HEAD
 
     # # Add Feature Page
     path('add-feature/<int:project_id>', views.addFeature, name='add-feature'),
+=======
+    path('edit-feature/update', views.updateFeature, name='edit-feature'),
+
+    # # Add Feature Page
+    path('add-feature/<int:project_id>', views.addFeature, name='add-feature'),
+    path('add-feature/store', views.addFeatureHasil, name='add-feature-hasil'),
+>>>>>>> 4205d106b736c50a7307bf9cd1af0bcd917e86af
 
     # Matches any html file
     re_path(r'^.*\.*', views.pages, name='pages'),

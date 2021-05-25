@@ -1,0 +1,54 @@
+{% extends "main/layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}	
+<!-- prism css -->
+<link rel="stylesheet" href="/static/assets/css/plugins/prism-coy.css">
+<!-- vendor css -->
+<link rel="stylesheet" href="/static/assets/css/style.css">
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-content">
+            <div class="row">
+                <!-- [ fixed-layout ] start -->
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Feature</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Tutorial</p>
+                            <div class="alert alert-info mb-0" role="alert">
+                                <h5 class="card-header">{{ context.featureName }}</h5>
+                                <h5 class="card-header">{{ context.userStory }}</h5>
+                                <h5 class="card-header">{{ context.tipe1 }}</h5>
+                                <h5 class="card-header">{{ context.content1 }}</h5>
+                                <h5 class="card-header">{{ context.tipe2 }}</h5>
+                                <h5 class="card-header">{{ context.content2 }}</h5>
+                                <h5 class="card-header">{{ context.tipe3 }}</h5>
+                                <h5 class="card-header">{{ context.content3 }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ fixed-layout ] end -->
+            </div>
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+    <!-- Apex Chart -->
+    <script src="/static/assets/js/plugins/apexcharts.min.js"></script>
+    <!-- custom-chart js -->
+    <script src="/static/assets/js/pages/dashboard-main.js"></script>
+
+{% endblock javascripts %}

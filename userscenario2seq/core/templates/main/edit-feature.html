@@ -10,40 +10,63 @@
     <!-- [ Main Content ] start -->
     <div class="pcoded-main-container">
         <div class="pcoded-content">
-            <!-- [ breadcrumb ] start -->
-            <!-- <div class="page-header">
-                <div class="page-block">
-                    <div class="row align-items-center">
-                        <div class="col-md-12">
-                            <div class="page-header-title">
-                                <h5 class="m-b-10">Dashboard Analytics</h5>
-                            </div>
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                                <li class="breadcrumb-item"><a href="#!">Dashboard Analytics</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            <!-- [ breadcrumb ] end -->
-            <!-- [ Main Content ] start -->
             <div class="row">
-               <div class="col-md-12">
+               <div class="col-sm-12">
                     <div class="card">
-                        <h5 class="card-header">Featured</h5>
                         <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#!" class="btn  btn-primary">Go somewhere</a>
+                            <h5>Add Feature</h5>
+                            <p>{{ context.project.project_name }}</p>
+                            <hr>
+                            <form method="POST" enctype="multipart/form-data" class="post-form" action="/edit-feature/update">
+                                {% csrf_token %}
+                                <input type="hidden" name="project_id" id="project_id" value="{{ context.project_id }}">
+                                <div class="form-group">
+                                    <h6>Feature Name</h6>
+                                    <input type="text" class="form-control" name="featureName" id="featureName" value="{{ context.feature.feature_name }}">
+                                </div>
+                                <div class="form-group">
+                                    <h6>User Story</h6>
+                                    <input type="text" class="form-control" id="userStory" name="userStory" value="{{ context.feature.user_story }}">
+                                    <small id="userStory" class="form-text text-muted">Format: As a [role], I want to [action], so that I [benefit]</small>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <h6>User Scenario</h6>
+                                    </div>
+                                    {% for p in context.scenarios %}
+                                    <input type="hidden" name="scenario_id{{forloop.counter}}" id="scenario_id" value="{{ p.scenario_id }}">
+                                    <div class="form-group col-md-2">
+                                        <select id="userScenario1" class="form-control" name="tipe{{forloop.counter}}" value="{{ p.tipe }}">
+                                            {% if p.tipe == "Given"  %}
+                                                <option selected>Given</option>
+                                                <option>When</option>
+                                                <option>Then</option>
+                                            {% elif p.tipe == "When" %}
+                                                <option>Given</option>
+                                                <option selected>When</option>
+                                                <option>Then</option>
+                                            {% else %}
+                                                <option>Given</option>
+                                                <option>When</option>
+                                                <option selected>Then</option>
+                                            {% endif %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-10">
+                                        <input type="text" class="form-control" id="content" name="content{{forloop.counter}}" value="{{ p.content }}">
+                                        <small id="jenisScenario1" class="form-text text-muted">Ex: "I go to URL", "Im on Layout"</small>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <button type="button" class="btn  btn-danger">Cancel</button>
+                                <button type="submit" class="btn  btn-primary">Submit</button>
+                            </form>
                         </div>
                     </div>
                </div>
             </div>
-            <!-- [ Main Content ] end -->
         </div>
     </div>
-    <!-- [ Main Content ] end -->
 
 {% endblock content %}
 
