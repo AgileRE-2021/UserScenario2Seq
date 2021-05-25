@@ -69,6 +69,7 @@ def createProjectStore(request):
     createProject.save()
     return redirect ('list-project')
 
+
 @login_required(login_url="/login/")
 def listProject(request):
     
@@ -89,21 +90,27 @@ def deleteProject(request, project_id):
     project_to_delete = get_object_or_404(project, pk=project_id).delete()
     return redirect('list-project') #list-project adalah name dari url
 
+@login_required(login_url="/login/")
+def deleteFeature(request, feature_id):
+    feature_to_delete = get_object_or_404(feature, pk=feature_id).delete()
+    return redirect('detail-project')
 
 @login_required(login_url="/login/")
-def detailProject(request, project_id):
-    
+def detailProject(request,project_id):
+    context = {}
+   
+    return render(request, 'main/detail-project.html', {'context': context})
+
+@login_required(login_url="/login/")
+def editProject(request, project_id):
     context = {}
     #project_to_edit = get_object_or_404(project, pk=project_id)
-
     #project_to_edit.project_desc = "ini deskripsi baruu banget"
     #project_to_edit.last_updated = timezone.now()
-    #project_to_edit.save()
-    
-    context['project'] = get_object_or_404(project, pk=project_id)
-
+    #project_to_edit.save() 
+    #context['project'] = get_object_or_404(project, pk=project_id)
     #html_template = loader.get_template( 'main/detail-project.html' )
-    return render(request, 'main/detail-project.html', {'context': context})
+    #return render(request, 'main/detail-project.html', {'context': context})
     #return HttpResponse(html_template.render(context, request))
 
 @login_required(login_url="/login/")

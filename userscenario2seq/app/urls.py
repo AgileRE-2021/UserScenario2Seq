@@ -29,9 +29,15 @@ urlpatterns = [
     # # List Project Page
     path('list-project', views.listProject, name='list-project'),
 
+    # # Edit Project Page
+    path('edit-project/<int:user_id>/<int:project_id>', views.editFeature, name='edit-feature'),
+
     # Delete Project
     path('delete-project/<int:project_id>', views.deleteProject, name='delete-project'),
-    
+
+    # Delete Feature
+    path('delete-feature/<int:feature_id>', views.deleteFeature, name='delete-feature'),
+
     # Coba pakai id
     path('detail-project/<int:project_id>', views.detailProject, name='detail-project'),
 
