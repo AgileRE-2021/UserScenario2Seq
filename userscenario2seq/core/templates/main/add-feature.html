@@ -23,11 +23,11 @@
                                 <input type="hidden" name="project_id" id="project_id" value="{{ context.project_id }}">
                                 <div class="form-group">
                                     <h6>Feature Name</h6>
-                                    <input type="text" class="form-control" name="featureName" id="featureName" placeholder="Enter Feature Name">
+                                    <input type="text" class="form-control" name="featureName" id="featureName" placeholder="Enter Feature Name" required>
                                 </div>
                                 <div class="form-group">
                                     <h6>User Story</h6>
-                                    <input type="text" class="form-control" id="userStory" name="userStory" placeholder="Enter User Story">
+                                    <input type="text" class="form-control" id="userStory" name="userStory" placeholder="Enter User Story" required>
                                     <small id="userStory" class="form-text text-muted">Format: As a [role], I want to [action], so that I [benefit]</small>
                                 </div>
                                 <div class="form-row">
@@ -35,36 +35,36 @@
                                         <h6>User Scenario</h6>
                                     </div>
                                     <div class="form-group col-md-2">
-                                        <select id="userScenario1" class="form-control" name="tipe1">
+                                        <select id="userScenario1" class="form-control" name="tipe1" required>
                                             <option selected>Given</option>
                                             <option>When</option>
                                             <option>Then</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-10">
-                                        <input type="text" class="form-control" id="content" name="content1" placeholder="Enter User Scenario">
+                                        <input type="text" class="form-control" id="content" name="content1" placeholder="Enter User Scenario" required>
                                         <small id="jenisScenario1" class="form-text text-muted">Ex: "I go to URL", "Im on Layout"</small>
                                     </div>
                                     <div class="form-group col-md-2">
-                                        <select id="userScenario2" class="form-control" name="tipe2">
+                                        <select id="userScenario2" class="form-control" name="tipe2" required>
                                             <option selected>Given</option>
                                             <option>When</option>
                                             <option>Then</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-10">
-                                        <input type="text" class="form-control" id="content" name="content2" placeholder="Enter User Scenario">
+                                        <input type="text" class="form-control" id="content" name="content2" placeholder="Enter User Scenario" required>
                                         <small id="jenisScenario2" class="form-text text-muted">Ex: "I click on Play button"</small>
                                     </div>
                                     <div class="form-group col-md-2">
-                                        <select id="userScenario3" class="form-control" name="tipe3">
+                                        <select id="userScenario3" class="form-control" name="tipe3" required>
                                             <option selected>Given</option>
                                             <option>When</option>
                                             <option>Then</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-10">
-                                        <input type="text" class="form-control" id="content" name="content3" placeholder="Enter User Scenario">
+                                        <input type="text" class="form-control" id="content" name="content3" placeholder="Enter User Scenario" required>
                                         <small id="jenisScenario3" class="form-text text-muted">Ex: "The System should display Tutorial"</small>
                                     </div>
                                 </div>
