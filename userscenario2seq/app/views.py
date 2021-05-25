@@ -11,10 +11,6 @@ from django.http import HttpResponse
 from django import template
 from app.models import project, feature, scenario
 from django.utils import timezone
-<<<<<<< HEAD
-
-=======
->>>>>>> 4205d106b736c50a7307bf9cd1af0bcd917e86af
 
 @login_required(login_url="/login/")
 def index(request):
@@ -44,13 +40,6 @@ def helpAndDocumentation(request):
 
 @login_required(login_url="/login/")
 def tutorial(request):
-<<<<<<< HEAD
-    
-    context = {}
-    context['segment'] = 'tutorial'
-
-    return render(request, 'main/tutorial.html', {'context': context})
-=======
     
     context = {}
     context['segment'] = 'tutorial'
@@ -79,25 +68,6 @@ def listProject(request):
     #segment, user, dan project adalah key dari object context
 
     return render(request, 'main/list-project.html', {'context': context})
-
-@login_required(login_url="/login/")
-def deleteProject(request, project_id):
-    project_to_delete = get_object_or_404(project, pk=project_id).delete()
-    return redirect('list-project') #list-project adalah name dari url
-
-
-@login_required(login_url="/login/")
-def detailProject(request, project_id):
-    
-    context = {}
-    #project_to_edit = get_object_or_404(project, pk=project_id)
-
-    #project_to_edit.project_desc = "ini deskripsi baruu banget"
-    #project_to_edit.last_updated = timezone.now()
-    #project_to_edit.save()
-    
-    context['project'] = get_object_or_404(project, pk=project_id)
->>>>>>> 4205d106b736c50a7307bf9cd1af0bcd917e86af
 
 @login_required(login_url="/login/")
 def createProject(request):
@@ -143,27 +113,37 @@ def deleteProject(request, project_id):
     return redirect('list-project') #list-project adalah name dari url
 
 @login_required(login_url="/login/")
-def deleteFeature(request, feature_id):
+def deleteFeature(request, feature_id,project_id):
     feature_to_delete = get_object_or_404(feature, pk=feature_id).delete()
-    return redirect('detail-project')
+    return redirect('detail-project', project_id=project_id)
 
 @login_required(login_url="/login/")
 def detailProject(request,project_id):
     context = {}
-   
+    context['id_project'] = project_id
+    context['project'] = get_object_or_404(project, pk=project_id)
+    context['feature'] = feature.objects.filter(project=context['project'])
     return render(request, 'main/detail-project.html', {'context': context})
-
+    
 @login_required(login_url="/login/")
 def editProject(request, project_id):
     context = {}
-    #project_to_edit = get_object_or_404(project, pk=project_id)
-    #project_to_edit.project_desc = "ini deskripsi baruu banget"
-    #project_to_edit.last_updated = timezone.now()
-    #project_to_edit.save() 
-    #context['project'] = get_object_or_404(project, pk=project_id)
-    #html_template = loader.get_template( 'main/detail-project.html' )
-    #return render(request, 'main/detail-project.html', {'context': context})
-    #return HttpResponse(html_template.render(context, request))
+    context['id_project'] = project_id
+    context['project'] = get_object_or_404(project, pk=project_id)
+    return render(request, 'main/edit-project.html', {'context': context}) 
+
+@login_required(login_url="/login/")
+def updateProject(request):
+    context = {}
+    project_to_edit = get_object_or_404(project, pk=request.POST.get("project_id"))
+    projectName = request.POST.get("project_name")
+    projectDesc = request.POST.get("project_desc")
+    lastUpdated = timezone.now()
+    project_to_edit.project_name = projectName
+    project_to_edit.project_desc = projectDesc
+    project_to_edit.last_updated = timezone.now()
+    project_to_edit.save()
+    return redirect('detail-project', project_id=request.POST.get("project_id")) 
 
 @login_required(login_url="/login/")
 def addFeature(request, project_id):
@@ -174,22 +154,6 @@ def addFeature(request, project_id):
   
     #html_template = loader.get_template( 'main/detail-project.html' )
     return render(request, 'main/add-feature.html', {'context': context})
-
-@login_required(login_url="/login/")
-def editFeature(request, project_id, feature_id):
-    
-    context = {}
-    
-    #feature_to_update = get_object_or_404(feature, pk=feature_id)
-    #scenarios = feature.objects.filter(feature = feature_to_update)
-    #for s in scenarios: 
-        #s.content = request.
-    
-    #context['idProject'] = project_id
-    #context['idFeature'] = feature_id
-  
-    #html_template = loader.get_template( 'main/detail-project.html' )
-    return render(request, 'main/edit-feature.html', {'context': context})
 
 @login_required(login_url="/login/")
 def addFeatureHasil(request):

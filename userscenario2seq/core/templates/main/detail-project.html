@@ -16,12 +16,14 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">Detail Project  
+                                <h5 class="mb-3">{{context.project.project_name}}</h5>
+                                <p class="mb-3">{{context.project.project_desc}}</p>
+                                <a href="/edit-project/{{context.id_project}}">
                                     <button class="btn btn-primary">
                                         Edit Project
                                     </button>
-                                </h5>
-                               
+                                </a>
+                                <hr>
                             </div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
@@ -38,9 +40,11 @@
                <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <button class="btn btn-primary">
-                            Add Feature
-                        </button>
+                        <a href="/add-feature/{{context.id_project}}">
+                            <button class="btn btn-primary">
+                                Add Feature
+                            </button>
+                        </a>
                         <hr>
                         <div class="table-responsive">
                             <table class="table table-hover">
@@ -53,6 +57,28 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
+                                <tbody>
+                                    {% for p in context.feature %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ p.feature_name }}</td>
+                                            <td>{{ p.date_created }}</td>
+                                            <td>{{ p.last_updated }}</td>
+                                            <td>
+                                                <a href="/edit-feature/{{ context.id_project}}/{{ p.id_feature }}">
+                                                    <button class="btn btn-primary">
+                                                        Edit
+                                                    </button>
+                                                </a>
+                                                <a href="/delete-feature/{{ context.id_project}}/{{ p.id_feature}}">
+                                                    <button class="btn btn-danger">
+                                                        Delete
+                                                    </button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
                             </table>
                         </div>
                     </div>
