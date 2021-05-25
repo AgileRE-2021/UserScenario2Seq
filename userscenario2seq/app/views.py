@@ -12,7 +12,6 @@ from django import template
 from app.models import project, feature, scenario
 from django.utils import timezone
 
-
 @login_required(login_url="/login/")
 def index(request):
     
@@ -91,6 +90,43 @@ def deleteProject(request, project_id):
 
 
 @login_required(login_url="/login/")
+def tutorial(request):
+    
+    context = {}
+    context['segment'] = 'tutorial'
+
+    return render(request, 'main/tutorial.html', {'context': context})
+
+@login_required(login_url="/login/")
+def createProject(request):
+    
+    context = {}
+    context['segment'] = 'createProject'
+
+    return render(request, 'main/create-project.html', {'context': context})
+
+@login_required(login_url="/login/")
+def listProject(request):
+    
+    context = {}
+    
+    context['segment'] = 'listProject'
+    
+    context['project'] = project.objects.filter(id_user=request.user.id) #ambil record project dari model
+    #request.user adalah user yang sedang login
+    
+    context['user'] = request.user
+    #segment, user, dan project adalah key dari object context
+
+    return render(request, 'main/list-project.html', {'context': context})
+
+@login_required(login_url="/login/")
+def deleteProject(request, project_id):
+    project_to_delete = get_object_or_404(project, pk=project_id).delete()
+    return redirect('list-project') #list-project adalah name dari url
+
+
+@login_required(login_url="/login/")
 def detailProject(request, project_id):
     
     context = {}
@@ -107,29 +143,223 @@ def detailProject(request, project_id):
     #return HttpResponse(html_template.render(context, request))
 
 @login_required(login_url="/login/")
-def addFeature(request, project_id):
+def addFeature(request, project_id, scenarios_count):
     
     context = {}
-    context['id'] = project_id
+    context['project_id'] = project_id
+    context['project'] = get_object_or_404(project, pk=project_id)
+
+    count = int(scenarios_count)
+    counts = {}
+
+    if(count < 3):
+        return redirect('detail-project', project_id=project_id)
+    else:
+        for i in range(count):
+            counts[i] = i
+        context['scenarios_count'] = counts
+        context['count'] = count
   
     #html_template = loader.get_template( 'main/detail-project.html' )
     return render(request, 'main/add-feature.html', {'context': context})
 
 @login_required(login_url="/login/")
+def addFeatureHasil(request):
+    
+    getProject = get_object_or_404(project, pk=request.POST.get("project_id"))
+    featureName = request.POST.get("featureName")
+    userStory = request.POST.get("userStory")
+    dateCreated = timezone.now()
+    lastUpdated = timezone.now()
+
+    #create feature baru
+    newFeature = feature(project=getProject
+                        ,feature_name=featureName
+                        ,user_story=userStory
+                        ,date_created=dateCreated
+                        ,last_updated=lastUpdated)
+
+    #save feature baru
+    newFeature.save()
+
+    #get feature terbaru
+    getFeature = feature.objects.filter(project=getProject).order_by('-date_created')[0]
+
+    #create setiap scenario yang dibuat
+    tipe = False
+    content = False
+    for key in request.POST:
+        #hanya ambil request yg berhubungan sama scenario
+        if(
+            key != 'project_id' 
+            and key != 'featureName' 
+            and key != 'userStory'):
+
+            if(tipe == False):
+                #cek key adalah tipe atau content
+                if("tipe" in key):
+                    #masuk tipe
+                    tipe = request.POST[key]
+            
+            if(content == False):
+                if("content" in key):
+                    #masuk content
+                    content = request.POST[key]
+
+            if(tipe != False and content != False):
+                #create scenario form
+                newScenario = scenario(feature=getFeature
+                                    ,tipe=tipe
+                                    ,content=content
+                                    ,date_created=dateCreated
+                                    ,last_updated=lastUpdated)
+
+                #save scenario baru
+                newScenario.save()
+                tipe = False
+                content = False
+    
+    '''
+    tipe1 = request.POST.get("tipe1")
+    content1  = request.POST.get("content1")
+    tipe2 = request.POST.get("tipe2")
+    content2  = request.POST.get("content2")
+    tipe3 = request.POST.get("tipe3")
+    content3  = request.POST.get("content3")
+
+    #create scenario form
+    newScenario1 = scenario(feature=getFeature
+                        ,tipe=tipe1
+                        ,content=content1
+                        ,date_created=dateCreated
+                        ,last_updated=lastUpdated)
+
+    #save scenario baru
+    newScenario1.save()
+
+    newScenario2 = scenario(feature=getFeature
+                        ,tipe=tipe2
+                        ,content=content2
+                        ,date_created=dateCreated
+                        ,last_updated=lastUpdated)
+
+    #save scenario baru
+    newScenario2.save()
+
+    newScenario3 = scenario(feature=getFeature
+                        ,tipe=tipe3
+                        ,content=content3
+                        ,date_created=dateCreated
+                        ,last_updated=lastUpdated)
+
+    #save scenario baru
+    newScenario3.save()
+    '''
+  
+    #html_template = loader.get_template( 'main/detail-project.html' )
+    return redirect('detail-project', project_id=request.POST.get("project_id"))
+
+@login_required(login_url="/login/")
 def editFeature(request, project_id, feature_id):
     
     context = {}
-    
-    #feature_to_update = get_object_or_404(feature, pk=feature_id)
-    #scenarios = feature.objects.filter(feature = feature_to_update)
-    #for s in scenarios: 
-        #s.content = request.
-    
-    #context['idProject'] = project_id
-    #context['idFeature'] = feature_id
-  
+    context['project_id'] = project_id
+    context['project'] = get_object_or_404(project, pk=project_id)
+
+    #mengambil feature
+    context['feature_id'] = feature_id
+    context['feature'] = get_object_or_404(feature, pk=feature_id)
+
+    #mengambil scenario
+    context['scenarios'] = scenario.objects.filter(feature=context['feature'])
+
     #html_template = loader.get_template( 'main/detail-project.html' )
     return render(request, 'main/edit-feature.html', {'context': context})
+
+@login_required(login_url="/login/")
+def updateFeature(request):
+    
+    #project_to_edit = get_object_or_404(project, pk=request.POST.get("project_id"))
+    print(request.POST.get("feature_id"))
+    feature_to_edit = get_object_or_404(feature, pk=request.POST.get("feature_id"))
+    featureName = request.POST.get("featureName")
+    userStory = request.POST.get("userStory")
+    dateCreated = timezone.now()
+    lastUpdated = timezone.now()
+
+    #update feature baru
+    feature_to_edit.feature_name = featureName
+    feature_to_edit.user_story = userStory
+    feature_to_edit.last_updated = lastUpdated
+
+    #save feature baru
+    feature_to_edit.save()
+
+    #ambil scenarios berdasarkan feature
+    scenarios = scenario.objects.filter(feature=feature_to_edit)
+    for s in scenarios:
+        tipe = False
+        content = False
+        scenario_id = False
+        for key in request.POST:
+            #hanya ambil request yg berhubungan sama scenario
+            if(
+                key != 'project_id' 
+                and key != 'feature_id'
+                and key != 'featureName' 
+                and key != 'userStory'):
+
+                if(scenario_id == False):
+                    if("scenario_id" in key):
+                        #masuk scenario id
+                        scenario_id = request.POST[key]
+
+                if(tipe == False):
+                    if("tipe" in key):
+                        #masuk tipe
+                        tipe = request.POST[key]
+                
+                if(content == False):
+                    if("content" in key):
+                        #masuk content
+                        content = request.POST[key]
+                
+                if(tipe != False and content != False and scenario_id != False):
+
+                    if(int(s.id_scenario) == int(scenario_id)):
+                        #edit
+                        s.tipe = tipe
+                        s.content = content 
+                        s.last_updated = lastUpdated
+
+                        #save edit
+                        s.save()
+
+                    #kembalikan tipe, content, dan scenario id jadi false
+                    tipe = False
+                    content = False
+                    scenario_id = False
+
+    '''
+    tipe1 = request.POST.get("tipe1")
+    content1  = request.POST.get("content1")
+    tipe2 = request.POST.get("tipe2")
+    content2  = request.POST.get("content2")
+    tipe3 = request.POST.get("tipe3")
+    content3  = request.POST.get("content3")
+
+    scenario_to_edit1 = scenario.objects.filter(feature=feature_to_edit).update(tipe=tipe1, content=content1)
+    scenario_to_edit1.save()
+
+    scenario_to_edit2 = scenario.objects.filter(feature=feature_to_edit).update(tipe=tipe2, content=content2)
+    scenario_to_edit2.save()
+
+    scenario_to_edit3 = scenario.objects.filter(feature=feature_to_edit).update(tipe=tipe3, content=content3)
+    scenario_to_edit3.save()
+    '''
+
+    #html_template = loader.get_template( 'main/detail-project.html' )
+    return redirect('detail-project',  project_id=request.POST.get("project_id"))
 
 @login_required(login_url="/login/")
 def pages(request):

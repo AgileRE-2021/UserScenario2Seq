@@ -37,9 +37,11 @@ urlpatterns = [
 
     # # Edit Feature Page
     path('edit-feature/<int:project_id>/<int:feature_id>', views.editFeature, name='edit-feature'),
+    path('edit-feature/update', views.updateFeature, name='update-feature'),
 
     # # Add Feature Page
-    path('add-feature/<int:project_id>', views.addFeature, name='add-feature'),
+    path('add-feature/<int:project_id>/<int:scenarios_count>', views.addFeature, name='add-feature'),
+    path('add-feature/store', views.addFeatureHasil, name='add-feature-hasil'),
 
     # Matches any html file
     re_path(r'^.*\.*', views.pages, name='pages'),
