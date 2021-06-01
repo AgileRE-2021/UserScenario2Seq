@@ -33,31 +33,123 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <h6>User Scenario</h6>
+                                        <p>Please pay attention to the instruction below: </p>
+                                        
+                                        <div class="collapse show" id="instructionCollapse">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <ol>
+                                                        <li>
+                                                            <b>Scenario's Condition</b>
+
+                                                            <ul>
+                                                                <li>
+                                                                    <b>Given</b><br>
+                                                                    Defining pre-condition (actor's current location) <br>
+                                                                    <i>example</i> : I go to #Dashboard page#, Im on #Layout#, etc.
+                                                                </li>
+                                                                <li>
+                                                                    <b>When</b><br>
+                                                                    Defining actor's action to the system<br>
+                                                                    <i>example</i> : I #click on login button#, I #fill the new account form#, etc.
+                                                                </li>
+                                                                <li>
+                                                                    <b>Then</b><br>
+                                                                    Defining system's responses<br>
+                                                                    <i>example</i> : The system #add new project#, The system should #display new project#, etc.
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            <b>Alternative Scenario</b><br>
+                                                            <ul>
+                                                                <li>
+                                                                    The scenario's name will be the condition (ex: 'Wrong Password')
+                                                                </li>
+                                                                <li>
+                                                                    Condition type for alternative scenario is  limited to <b>Then</b>.
+                                                                </li>
+                                                                <li>
+                                                                    Condition with other type for alternative scenario (<b>Given</b>, <b>When</b>) will be collected
+                                                                    from normal scenario.
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ol>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-6">
+                                                <button 
+                                                    class="btn btn-info btn-block my-1" 
+                                                    type="button" 
+                                                    data-toggle="collapse" 
+                                                    data-target="#instructionCollapse" 
+                                                    aria-expanded="true" 
+                                                    aria-controls="collapseExample"
+                                                    >
+                                                    Toggle Instruction
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
-                                    {% for p in context.scenarios %}
-                                    <input type="hidden" name="scenario_id{{forloop.counter}}" value="{{ p.id_scenario }}">
-                                    <div class="form-group col-md-2">
-                                        <select class="form-control" name="tipe{{forloop.counter}}" value="{{ p.tipe }}" required>
-                                            {% if p.tipe == "Given"  %}
-                                                <option selected>Given</option>
-                                                <option>When</option>
-                                                <option>Then</option>
-                                            {% elif p.tipe == "When" %}
-                                                <option>Given</option>
-                                                <option selected>When</option>
-                                                <option>Then</option>
-                                            {% else %}
-                                                <option>Given</option>
-                                                <option>When</option>
-                                                <option selected>Then</option>
-                                            {% endif %}
-                                        </select>
+
+                                    <!-- Scenarios -->
+                                    <div class="col-md-12" id="all-scenario">
+                                        <input type="hidden" name="scenario-count" value="{{ context.scenario|length }}">
+                                        {% for p in context.scenario %}
+                                            <div class="form-row">
+                                                <hr class="w-100">
+
+                                                <div class="form-group col-md-12">
+                                                    <p>
+                                                        Scenario {{ forloop.counter }}
+                                                    </p>
+                                                    <input type="hidden" name="scenario{{ forloop.counter }}-id" value="{{ p.id_scenario }}">
+
+                                                    <input 
+                                                        type="text" 
+                                                        class="form-control"
+                                                        style="max-width: 300px"
+                                                        name="name{{ forloop.counter }}" 
+                                                        value="{{ p.scenario_name }}"
+                                                        >
+                                                </div>
+
+                                                {% for c in context.condition %}
+                                                    {% for cn in c %}
+                                                        {% if cn.scenario == p %}
+                                                            {% if cn.tipe == "Then" or p.scenario_type == "Normal"%}
+                                                                <input type="hidden" name="scenario{{ p.id_scenario }}-condition{{ cn.id_condition }}-id" value="{{ cn.id_condition }}">
+                                                                <div class="form-group col-md-2">  
+                                                                    <select class="form-control" name="scenario{{ p.id_scenario }}-condition{{ cn.id_condition }}-tipe" value="{{ cn.tipe }}" required>
+                                                                        {% if cn.tipe == "Given"  %}
+                                                                            <option selected>Given</option>
+                                                                            <option>When</option>
+                                                                            <option>Then</option>
+                                                                        {% elif cn.tipe == "When" %}
+                                                                            <option>Given</option>
+                                                                            <option selected>When</option>
+                                                                            <option>Then</option>
+                                                                        {% else %}
+                                                                            <option>Given</option>
+                                                                            <option>When</option>
+                                                                            <option selected>Then</option>
+                                                                        {% endif %}
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group col-md-10">
+                                                                    <input type="text" class="form-control" name="scenario{{ p.id_scenario }}-condition{{ cn.id_condition }}-content" value="{{ cn.content }}" required>
+                                                                </div>
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endfor %}
+                                            </div>
+                                        {% endfor %}
                                     </div>
-                                    <div class="form-group col-md-10">
-                                        <input type="text" class="form-control" name="content{{forloop.counter}}" value="{{ p.content }}" required>
-                                        <small class="form-text text-muted">Ex: "I go to URL", "Im on Layout"</small>
-                                    </div>
-                                    {% endfor %}
                                 </div>
                                 <a href="/detail-project/{{ context.project_id }}">
                                     <button type="button" class="btn  btn-danger">Cancel</button>  

@@ -27,6 +27,7 @@ class scenario(models.Model):
     feature = models.ForeignKey(feature, on_delete=models.CASCADE)
     id_scenario = models.AutoField(primary_key=True)
     scenario_name = models.CharField(max_length=100)
+    scenario_type = models.CharField(max_length=25)
     date_created = models.DateTimeField()
     last_updated = models.DateTimeField()
 

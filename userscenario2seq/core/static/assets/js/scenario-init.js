@@ -37,8 +37,6 @@ nameScenario.setAttribute('type','text')
 nameScenario.setAttribute('class','form-control')
 nameScenario.setAttribute('style',"max-width: 300px")
 nameScenario.setAttribute('name',`name0`)
-nameScenario.setAttribute('value','Normal')
-nameScenario.setAttribute('disabled',true)
 nameScenario.setAttribute('placeholder','Fill the scenario name')
 nameScenario.setAttribute('required',true)
 

@@ -153,7 +153,6 @@ def addFeature(request, project_id):
 
 @login_required(login_url="/login/")
 def addFeatureHasil(request):
-    
     getProject = get_object_or_404(project, pk=request.POST.get("project_id"))
     featureName = request.POST.get("featureName")
     userStory = request.POST.get("userStory")
@@ -175,13 +174,23 @@ def addFeatureHasil(request):
 
     #get jumlah scenario
     scenarioCount = request.POST.get("scenario-count")
+
+    #get jumlah kondisi pada scenario normal
+    baseConditionCount = request.POST.get("count0")
     for i in range(int(scenarioCount)):
         #looping sebanyak jumlah scenario
+        keyScenarioName = request.POST.get("name"+str(i))
+
+        if(i == 0):
+            scenarioType = "Normal"
+        else:
+            scenarioType = "Alternative"
         
         #buat scenario
         newScenario = scenario(
             feature=getFeature,
-            scenario_name=request.POST.get("name"+str(i)),
+            scenario_name=keyScenarioName,
+            scenario_type=scenarioType,
             date_created=dateCreated,
             last_updated=lastUpdated
         )
@@ -190,7 +199,30 @@ def addFeatureHasil(request):
         newScenario.save()
 
         #get scenario yang baru saja dibuat
-        getScenario = scenario.objects.filter(feature=getFeature).order_by('-date_created')[0]
+        getScenario = scenario.objects.filter(feature=getFeature).filter(scenario_name=keyScenarioName).order_by('-date_created')[0]
+
+        #jika scenario bukan scenario normal, maka tambahi dengan kondisi give when dari skenario normal
+        if(i != 0):
+            for k in range(int(baseConditionCount)):
+                #looping sebanyak jumlah condition pada skenario normal
+                
+                #ambil jenis condition dari skenario normal untuk pengecekan
+                conditionType = request.POST.get("scenario0-tipe"+str(k))
+
+                if(conditionType != 'Then'):
+                    #jika bukan Then, maka masukkan (berarti Given / When)
+
+                    #buat condition
+                    newCondition = condition(
+                        scenario=getScenario,
+                        tipe=request.POST.get("scenario0-tipe"+str(k)),
+                        content=request.POST.get("scenario0-content"+str(k)),
+                        date_created=dateCreated,
+                        last_updated=lastUpdated
+                    )
+
+                    #save newCondition
+                    newCondition.save()
 
         #get jumlah condition dalam scenario ke i
         conditionCount = request.POST.get("count"+str(i))
@@ -256,12 +288,17 @@ def editFeature(request, project_id, feature_id):
     context['project_id'] = project_id
     context['project'] = get_object_or_404(project, pk=project_id)
 
-    #mengambil feature
+    #mengambil feature berdasarkan project
     context['feature_id'] = feature_id
     context['feature'] = get_object_or_404(feature, pk=feature_id)
 
-    #mengambil scenario
-    context['scenarios'] = scenario.objects.filter(feature=context['feature'])
+    #mengambil scenario berdasarkan feature
+    context['scenario'] = scenario.objects.filter(feature=context['feature'])
+
+    #mengambil condition berdasarkan scenario
+    context['condition'] = []
+    for s in context['scenario']:
+        context['condition'].append(condition.objects.filter(scenario=s))
 
     #html_template = loader.get_template( 'main/detail-project.html' )
     return render(request, 'main/edit-feature.html', {'context': context})
@@ -270,7 +307,6 @@ def editFeature(request, project_id, feature_id):
 def updateFeature(request):
     
     #project_to_edit = get_object_or_404(project, pk=request.POST.get("project_id"))
-    print(request.POST.get("feature_id"))
     feature_to_edit = get_object_or_404(feature, pk=request.POST.get("feature_id"))
     featureName = request.POST.get("featureName")
     userStory = request.POST.get("userStory")
@@ -286,7 +322,47 @@ def updateFeature(request):
     feature_to_edit.save()
 
     #ambil scenarios berdasarkan feature
-    scenarios = scenario.objects.filter(feature=feature_to_edit)
+    scenarioCount = int(request.POST.get('scenario-count'))
+    for i in range(1,scenarioCount+1):
+        scenarioId = request.POST.get('scenario'+str(i)+"-id")
+
+        #get scenario berdasarkan id
+        scenarioToUpdate = get_object_or_404(scenario, pk=scenarioId)
+        print("id =",scenarioToUpdate.scenario_name)
+
+        #update scenario
+        scenarioToUpdate.scenario_name = request.POST.get('name'+str(i))
+        scenarioToUpdate.last_updated = lastUpdated
+
+        #save scenario
+        scenarioToUpdate.save()
+
+        for key in request.POST:
+            #looping key dalam POST
+            identifyScenario = "scenario"+str(scenarioId)
+            identifyCondition = "condition"
+            identifyId = "id"
+            conditionId = ""
+
+            if(
+                identifyScenario in key 
+                and identifyId in key
+                and identifyCondition in key):
+                #artinya ini name untuk id condition sesuai scenarioId
+                conditionId = request.POST.get(key) #ambil id nya
+
+                #ambil condition sesuai id
+                conditionToUpdate = get_object_or_404(condition, pk=conditionId)
+
+                #update
+                conditionToUpdate.tipe = request.POST.get('scenario'+str(scenarioId)+'-condition'+str(conditionId)+'-tipe')
+                conditionToUpdate.content = request.POST.get('scenario'+str(scenarioId)+'-condition'+str(conditionId)+'-content')
+                conditionToUpdate.last_updated = lastUpdated
+
+                #save
+                conditionToUpdate.save()
+
+    '''scenarios = scenario.objects.filter(feature=feature_to_edit)
     for s in scenarios:
         tipe = False
         content = False
@@ -329,6 +405,7 @@ def updateFeature(request):
                     tipe = False
                     content = False
                     scenario_id = False
+    '''
 
     #html_template = loader.get_template( 'main/detail-project.html' )
     return redirect('detail-project',  project_id=request.POST.get("project_id"))
