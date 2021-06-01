@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.template import loader
 from django.http import HttpResponse
 from django import template
-from app.models import project, feature, scenario
+from app.models import project, feature, scenario, condition
 from django.utils import timezone
 
 @login_required(login_url="/login/")
@@ -19,7 +19,8 @@ def index(request):
     context['segment'] = 'index'
 
     html_template = loader.get_template( 'index.html' )
-    return HttpResponse(html_template.render(context, request))
+    #return HttpResponse(html_template.render(context, request))
+    return redirect('tutorial')
 
 @login_required(login_url="/login/")
 def mainIndex(request):
@@ -140,22 +141,12 @@ def updateProject(request):
     return redirect('detail-project', project_id=request.POST.get("project_id")) 
 
 @login_required(login_url="/login/")
-def addFeature(request, project_id, scenarios_count):
+def addFeature(request, project_id):
     
     context = {}
     context['project_id'] = project_id
     context['project'] = get_object_or_404(project, pk=project_id)
-
-    count = int(scenarios_count)
     counts = {}
-
-    if(count < 3):
-        return redirect('detail-project', project_id=project_id)
-    else:
-        for i in range(count):
-            counts[i] = i
-        context['scenarios_count'] = counts
-        context['count'] = count
   
     #html_template = loader.get_template( 'main/detail-project.html' )
     return render(request, 'main/add-feature.html', {'context': context})
@@ -182,6 +173,44 @@ def addFeatureHasil(request):
     #get feature terbaru
     getFeature = feature.objects.filter(project=getProject).order_by('-date_created')[0]
 
+    #get jumlah scenario
+    scenarioCount = request.POST.get("scenario-count")
+    for i in range(int(scenarioCount)):
+        #looping sebanyak jumlah scenario
+        
+        #buat scenario
+        newScenario = scenario(
+            feature=getFeature,
+            scenario_name=request.POST.get("name"+str(i)),
+            date_created=dateCreated,
+            last_updated=lastUpdated
+        )
+
+        #save
+        newScenario.save()
+
+        #get scenario yang baru saja dibuat
+        getScenario = scenario.objects.filter(feature=getFeature).order_by('-date_created')[0]
+
+        #get jumlah condition dalam scenario ke i
+        conditionCount = request.POST.get("count"+str(i))
+
+        for j in range(int(conditionCount)):
+            #looping sebanyak jumlah condition
+
+            #buat condition
+            newCondition = condition(
+                scenario=getScenario,
+                tipe=request.POST.get("scenario"+str(i)+"-tipe"+str(j)),
+                content=request.POST.get("scenario"+str(i)+"-content"+str(j)),
+                date_created=dateCreated,
+                last_updated=lastUpdated
+            )
+
+            #save newCondition
+            newCondition.save()
+
+    '''
     #create setiap scenario yang dibuat
     tipe = False
     content = False
@@ -215,6 +244,7 @@ def addFeatureHasil(request):
                 newScenario.save()
                 tipe = False
                 content = False
+    '''
   
     #html_template = loader.get_template( 'main/detail-project.html' )
     return redirect('detail-project', project_id=request.POST.get("project_id"))

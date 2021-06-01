@@ -17,7 +17,7 @@
                             <h5>Add Feature</h5>
                             <p>{{ context.project.project_name }}</p>
                             <hr>
-                            <form method="POST" enctype="multipart/form-data" class="post-form" action="/add-feature/store">
+                            <form id="form-scenario" method="POST" enctype="multipart/form-data" class="post-form" action="/add-feature/store">
                                 {% csrf_token %}
                                 <input type="hidden" name="project_id" id="project_id" value="{{ context.project_id }}">
                                 <div class="form-group">
@@ -32,71 +32,85 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <h6>User Scenario</h6>
-                                        <p>Please fill in the scenario based it types. Pay attention to the instruction below: </p>
-                                        <button 
-                                            class="btn btn-success my-1" 
-                                            type="button" 
-                                            data-toggle="collapse" 
-                                            data-target="#instructionCollapse" 
-                                            aria-expanded="false" 
-                                            aria-controls="collapseExample"
-                                            >Instruction
-                                        </button>
-                                        <div class="collapse" id="instructionCollapse">
+                                        <p>Please pay attention to the instruction below: </p>
+                                        
+                                        <div class="collapse show" id="instructionCollapse">
                                             <div class="card">
                                                 <div class="card-body">
-                                                    <ul>
+                                                    <ol>
                                                         <li>
-                                                            <b>Given</b><br>
-                                                            Defining pre-condition (actor's current location) <br>
-                                                            <i>example</i> : I go to #Dashboard page#, Im on #Layout#, etc.
+                                                            <b>Scenario's Condition</b>
+
+                                                            <ul>
+                                                                <li>
+                                                                    <b>Given</b><br>
+                                                                    Defining pre-condition (actor's current location) <br>
+                                                                    <i>example</i> : I go to #Dashboard page#, Im on #Layout#, etc.
+                                                                </li>
+                                                                <li>
+                                                                    <b>When</b><br>
+                                                                    Defining actor's action to the system<br>
+                                                                    <i>example</i> : I #click on login button#, I #fill the new account form#, etc.
+                                                                </li>
+                                                                <li>
+                                                                    <b>Then</b><br>
+                                                                    Defining system's responses<br>
+                                                                    <i>example</i> : The system #add new project#, The system should #display new project#, etc.
+                                                                </li>
+                                                            </ul>
                                                         </li>
                                                         <li>
-                                                            <b>When</b><br>
-                                                            Defining actor's action to the system<br>
-                                                            <i>example</i> : I #click on login button#, I #fill the new account form#, etc.
+                                                            <b>Alternative Scenario</b><br>
+                                                            <ul>
+                                                                <li>
+                                                                    The scenario's name will be the condition (ex: 'Wrong Password')
+                                                                </li>
+                                                                <li>
+                                                                    Condition type for alternative scenario is  limited to <b>Then</b>.
+                                                                </li>
+                                                                <li>
+                                                                    Condition with other type for alternative scenario (<b>Given</b>, <b>When</b>) will be collected
+                                                                    from normal scenario.
+                                                                </li>
+                                                            </ul>
                                                         </li>
-                                                        <li>
-                                                            <b>Then</b><br>
-                                                            Defining system's responses<br>
-                                                            <i>example</i> : The system #add new project#, The system should #display new project#, etc.
-                                                        </li>
-                                                    </ul>
+                                                    </ol>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-lg-2 col-md-3 col-sm-6">
+                                                    <button 
+                                                        class="btn btn-info btn-block my-1" 
+                                                        type="button" 
+                                                        data-toggle="collapse" 
+                                                        data-target="#instructionCollapse" 
+                                                        aria-expanded="true" 
+                                                        aria-controls="collapseExample"
+                                                        >
+                                                        Toggle Instruction
+                                                    </button>
+                                                </div>
+                                                <div class="col-lg-2 col-md-3 col-sm-6">
+                                                    <button 
+                                                        class="btn btn-primary btn-block my-1" 
+                                                        type="button" 
+                                                        onclick="addScenario()"
+                                                        >Add Scenario
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    {% for p in context.scenarios_count %}
-                                        <div class="form-group col-md-2">
-                                            <select class="form-control" name="tipe{{ p }}" required>
-                                                    <option selected>Given</option>
-                                                    <option>When</option>
-                                                    <option>Then</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-10">
-                                            <input type="text" class="form-control" name="content{{ p }}" placeholder="Fill the scenario here" required>
-                                            <!--<small id="jenisScenario1" class="form-text text-muted">Ex: "I go to URL", "Im on Layout"</small>-->
-                                        </div>
-                                        {% if p == context.count|add:"-1" %}
-                                            <div class="form-group col-md-12 mb-5">
-                                                <a 
-                                                    href="/add-feature/{{ context.project.id_project }}/{{ context.count|add:'1' }}"
-                                                    class="btn btn-success btn-sm-block"
-                                                    >
-                                                    + Add More Scenario
-                                                </a>
-                                                {% if context.count > 3 %}
-                                                    <a 
-                                                        href="/add-feature/{{ context.project.id_project }}/{{ context.count|add:'-1' }}"
-                                                        class="btn btn-warning btn-sm-block ml-2"
-                                                        >
-                                                        - Decrease Scenario
-                                                    </a>
-                                                {% endif %}
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
+                                    
+                                    <!-- Input Hidden Jumlah Scenario -->
+                                    <input id="scenario-count" type="hidden" name="scenario-count" value="1">
+                                    
+                                    <!-- Scenarios -->
+                                    <div class="col-md-12" id="all-scenario">
+                                    </div>
                                 </div>
                                 <a href="/detail-project/{{ context.project_id }}">
                                     <button type="button" class="btn  btn-danger">Cancel</button>  
@@ -113,10 +127,44 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
+    <!-- Initial Script for Scenario -->
+    <script src="/static/assets/js/scenario-init.js"></script>
+
+    <!-- Script for Buttons -->
+    <script src="/static/assets/js/scenario-buttons.js"></script>
 
     <!-- Apex Chart -->
     <script src="/static/assets/js/plugins/apexcharts.min.js"></script>
     <!-- custom-chart js -->
     <script src="/static/assets/js/pages/dashboard-main.js"></script>
 
+    <!--<div class="form-group col-md-12 mb-5">
+            <button
+                type="button"
+                class="btn btn-success btn-sm-block"
+                onclick="addCondition()"
+                >
+                + Add More Condition
+            </button>
+            <button
+                type="button"
+                class="btn btn-warning btn-sm-block ml-2"
+                onclick="decCondition()"
+                >
+                - Decrease Condition
+            </button>
+        </div>
+
+    {% for p in context.scenarios_count %}
+        <div class="form-group col-md-2">
+            <select class="form-control" name="tipe{{ p }}" required>
+                    <option selected>Given</option>
+                    <option>When</option>
+                    <option>Then</option>
+            </select>
+        </div>
+        <div class="form-group col-md-10">
+            <input type="text" class="form-control" name="content{{ p }}" placeholder="Fill the scenario here" required>
+        </div>
+    {% endfor %}-->
 {% endblock javascripts %}
