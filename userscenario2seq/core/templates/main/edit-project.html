@@ -7,6 +7,7 @@
 
 {% block content %}	
 
+
 <section class="pcoded-main-container">
     <div class="pcoded-content">
         <!-- [ breadcrumb ] start -->
@@ -15,11 +16,12 @@
                 <div class="row align-items-center">
                     <div class="col-md-12">
                         <div class="page-header-title">
-                            <h5 class="m-b-10">Create Project</h5>
+                            <h5 class="m-b-10">Edit Project</h5>
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="#!">Create Project</a></li>
+                            <li class="breadcrumb-item"><a href="#!">List Project</a></li>
+                            <li class="breadcrumb-item"><a href="#!">Edit Project</a></li>
                         </ul>
                     </div>
                 </div>
@@ -32,27 +34,31 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>Create Project</h5>
+                    <h5>Edit Project</h5>
                     <hr>
                 </div>
                 <div class="card-body">
                     <!--<h5>Create Project</h5>-->
-                    <form method="POST" enctype="multipart/form-data" class="post-form" action="/create-project/store">
+                    <form method="POST" enctype="multipart/form-data" class="post-form" action="/edit-project/update">
                         {% csrf_token %}
+                        <input type="hidden" class="form-control" name="project_id" id="project_id" value="{{context.id_project}}" >
                         <div class="form-group ">  
                             <h6>Project Name</h6>
-                             <input type="text" class="form-control" name="project_name" id="projec_tName" placeholder="Enter Project Name" required>
+                             <input type="text" class="form-control" name="project_name" id="projec_tName" value="{{context.project.project_name}}" required>
                              <div class="invalid-feedback">
                                 Please choose a username.
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1"><h6>Project Description</h6></label>
-                            <textarea class="form-control" name="project_desc" id="exampleFormControlTextarea1" rows="3" required></textarea>
+                            <textarea class="form-control" name="project_desc" id="exampleFormControlTextarea1" required>{{context.project.project_desc}}
+                            </textarea>
                             </div>
-                        
-                        <button type="button" class="btn  btn-danger">Cancel</button>
-                        <button type="submit" class="btn  btn-primary">Submit</button>
+    
+                        <a href="/detail-project/{{ context.id_project }}">
+                            <button type="button" class="btn  btn-danger">Cancel</button>  
+                        </a>     
+                        <button type="submit" class="btn  btn-primary">Save</button>
                     </form>
                         </div>
                     </div>
