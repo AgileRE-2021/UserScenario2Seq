@@ -2823,14 +2823,14 @@ fieldset:disabled a.btn {
 
 .btn-primary {
     color: #fff;
-    background-color: #4099ff;
-    border-color: #4099ff;
+    background-color: #900c3f;
+    border-color: #900c3f;
 }
 
 .btn-primary:hover {
     color: #fff;
-    background-color: #1a85ff;
-    border-color: #0d7eff;
+    background-color: #ab4a71;
+    border-color: #ab4a71;
 }
 
 .btn-primary:focus, .btn-primary.focus {
@@ -4997,9 +4997,9 @@ input[type="button"].btn-block {
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    background-color: #fff;
+    background-color: rgba(216,170,188,255);
     background-clip: border-box;
-    border: 0px solid rgba(0, 0, 0, 0.125);
+    border: 0px solid rgba(213,184,205,255);
     border-radius: 5px;
 }
 
@@ -5022,6 +5022,7 @@ input[type="button"].btn-block {
     -webkit-box-flex: 1;
     flex: 1 1 auto;
     padding: 25px;
+    background-color: rgba(216,170,188,255);
 }
 
 .card-title {
@@ -5048,7 +5049,7 @@ input[type="button"].btn-block {
 .card-header {
     padding: 25px 25px;
     margin-bottom: 0;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(216,170,188,255);
     border-bottom: 0px solid rgba(0, 0, 0, 0.125);
 }
 
@@ -18526,7 +18527,7 @@ strong {
 
 .page-header {
     box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-    background: #fff;
+    background: #d8aabc;
     padding: 20px 25px;
     border-radius: 5px;
 }
@@ -20693,7 +20694,7 @@ pre[class*=language-]:before {
     min-height: 56px;
     padding: 0;
     top: 0;
-    background: #fff;
+    background: #7d4b6e ;
     color: rgba(59, 70, 80, 0.8);
     width: 100%;
     -webkit-transition: all 0.15s ease-in-out;
@@ -21214,7 +21215,7 @@ pre[class*=language-]:before {
     height: calc(100% - 56px);
     margin-top: 56px;
     top: 0;
-    background: #3b4650;
+    background: #d5b8cd !important;
     color: #b9c7d4;
 }
 
@@ -26282,7 +26283,7 @@ div.dtk-focus-alt table.dataTable tbody th.focus {
     overflow: hidden;
     min-width: 100%;
     min-height: 100vh;
-    background: linear-gradient(45deg, #4099ff, #82bcff);
+    background: linear-gradient(45deg, #d1a1b6, #c17c99, #b2587d, #992251);
 }
 
 @media (min-width: 1200px) {
