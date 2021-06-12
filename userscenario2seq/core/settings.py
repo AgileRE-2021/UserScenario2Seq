@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     #'mathfilters',
     #'debug_toolbar',
     'app',  # Enable the inner app 
+    'plantuml',
 ]
 
 MIDDLEWARE = [

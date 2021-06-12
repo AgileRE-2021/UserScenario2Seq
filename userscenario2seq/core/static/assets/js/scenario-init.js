@@ -60,18 +60,40 @@ for(let i=0; i<rowCount; i++){
     s.setAttribute('required', true);
 
     //masukkan tiap option ke dalam select
-    for(let i=0;i<3;i++){
+    if(i == 0){
+        for(let j=0;j<3;j++){
+            let o = document.createElement("option");
+            if(j == 0){
+                o.setAttribute('selected', true);
+                o.innerHTML = "Given";
+            }
+            else if(i == 1){
+                o.innerHTML = "When";
+            }
+            else{
+                o.innerHTML = "Then";
+            }
+            s.appendChild(o)
+        }
+    }
+    else if(i == 1){
+        for(let j=0;j<2;j++){
+            let o = document.createElement("option");
+            if(j == 0){
+                o.setAttribute('selected', true);
+                o.innerHTML = "When";
+            }
+            else{
+                o.innerHTML = "Then";
+            }
+            s.appendChild(o)
+        }
+    }
+    else{
         let o = document.createElement("option");
-        if(i == 0){
-            o.setAttribute('selected', true);
-            o.innerHTML = "Given";
-        }
-        else if(i == 1){
-            o.innerHTML = "When";
-        }
-        else{
-            o.innerHTML = "Then";
-        }
+        o.setAttribute('selected', true);
+        o.innerHTML = "Then";
+        
         s.appendChild(o)
     }
     divSelect.appendChild(s)

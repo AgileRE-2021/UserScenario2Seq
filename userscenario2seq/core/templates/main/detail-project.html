@@ -83,6 +83,11 @@
                                             <td>{{ p.date_created }}</td>
                                             <td>{{ p.last_updated }}</td>
                                             <td>
+                                                <a href="/generate-sequence/{{ context.id_project}}/{{ p.id_feature}}">
+                                                    <button class="btn btn-info">
+                                                        Generate Sequence
+                                                    </button>
+                                                </a>
                                                 <a href="/edit-feature/{{ context.id_project}}/{{ p.id_feature }}">
                                                     <button class="btn btn-primary">
                                                         Edit

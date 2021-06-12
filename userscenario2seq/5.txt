@@ -1,0 +1,14 @@
+title Login
+hide footbox
+actor "user"
+boundary "login page"
+control "LoginController"
+"user" --> "login page" :fill the form
+activate "login page"
+"login page" --> "LoginController" :empty
+alt Account Valid
+ "LoginController" --> "login page" :display home page
+else Wrong Password
+ "LoginController" --> "login page" :display home page
+end
+deactivate "login page"
