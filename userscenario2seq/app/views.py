@@ -207,8 +207,10 @@ def generateSequence(request, feature_id,project_id):
                     f.write('"'+roleName+'" --> "'+boundaryName+'" :'+message+'\n')  
                     f.write('activate "'+boundaryName+'"\n')   
                     f.write('"'+boundaryName+'" --> "'+controllerName+'" :empty\n')   
+                    f.write('activate "'+controllerName+'"\n') 
             
             #looping khusus then
+            f.write('alt '+s.scenario_name+'\n')
             for (j, c) in enumerate(conditions): 
                 if(c.tipe == 'Then'):
                     then = c.content
@@ -222,7 +224,6 @@ def generateSequence(request, feature_id,project_id):
                             break
 
                     if(len(scenarios) > 1):
-                        f.write('alt '+s.scenario_name+'\n')
                         f.write(' "'+controllerName+'" --> "'+boundaryName+'" :'+systemResponse+'\n')
                         
     #looping khusus nyari scenario alternative
@@ -230,27 +231,28 @@ def generateSequence(request, feature_id,project_id):
         if(s.scenario_type == 'Alternative'):
             conditions = condition.objects.filter(scenario=s)
 
-            #looping khusus then
-            for (j, c) in enumerate(conditions): 
-                if(c.tipe == 'Then'):
-                    then = c.content
-                    tanda = "#"
-                    indexcond = then.index(tanda) 
-                    indexcondbr = 0
-                    for h in range ( indexcond+1,len(then)): #KATA1
-                        if (then[h] == "#") :
-                            indexcondbr = h
-                            systemResponse = then[indexcond+1:indexcondbr]
-                            break
+            if(len(scenarios) > 1):
+                f.write('else '+s.scenario_name+'\n')
 
-                    if(len(scenarios) > 1):
-                        f.write('else '+s.scenario_name+'\n')
+                #looping khusus then
+                for (j, c) in enumerate(conditions): 
+                    if(c.tipe == 'Then'):
+                        then = c.content
+                        tanda = "#"
+                        indexcond = then.index(tanda) 
+                        indexcondbr = 0
+                        for h in range ( indexcond+1,len(then)): #KATA1
+                            if (then[h] == "#") :
+                                indexcondbr = h
+                                systemResponse = then[indexcond+1:indexcondbr]
+                                break
+
                         f.write(' "'+controllerName+'" --> "'+boundaryName+'" :'+systemResponse+'\n')
 
-                        if(i == (len(scenarios)-1)):
-                            #berarti scenario terakhir
-                            f.write('end\n')
-                            f.write('deactivate "'+boundaryName+'"\n')
+            if(i == (len(scenarios)-1)):
+                #berarti scenario terakhir
+                f.write('end\n')
+                f.write('deactivate "'+boundaryName+'"\n')
     
     #f.write("@enduml\n")
     f = open('sequences/'+str(feature_id)+".txt","r")
@@ -261,7 +263,7 @@ def generateSequence(request, feature_id,project_id):
                           form_auth={}, http_opts={}, request_opts={})
 
     # Call the PlantUML server on the .txt file
-    downloads_path = str(Path.home() / "Downloads")
+    #downloads_path = str(Path.home() / "Downloads")
 
     server.processes_file(abspath(f'sequences/'+str(feature_id)+'.txt'))
 

@@ -6,11 +6,12 @@ control "RegisterController"
 "new user" --> "register page" :fill the form
 activate "register page"
 "register page" --> "RegisterController" :empty
+activate "RegisterController"
 alt Register Success
  "RegisterController" --> "register page" :display login page
 else Account Exist
  "RegisterController" --> "register page" :display warn account exist
-else Email is not valid
+else Email is taken
  "RegisterController" --> "register page" :display warn email is not valid
 end
 deactivate "register page"
