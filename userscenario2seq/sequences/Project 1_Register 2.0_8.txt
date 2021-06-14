@@ -1,0 +1,14 @@
+title Register 2.0
+hide footbox
+actor "new user"
+boundary "register page"
+control "Register 2.0Controller"
+"new user" --> "register page" :fill the register form
+activate "register page"
+"register page" --> "Register 2.0Controller" :empty
+activate "Register 2.0Controller"
+"new user" --> "register page" :click register button
+activate "register page"
+"register page" --> "Register 2.0Controller" :empty
+activate "Register 2.0Controller"
+alt Success

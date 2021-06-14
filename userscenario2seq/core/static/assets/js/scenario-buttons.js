@@ -24,15 +24,15 @@ function addCondition(id){
 
     //masukkan tiap option ke dalam select
     if(buttonId == 0){
-        for(let i=0;i<1;i++){
+        for(let i=0;i<2;i++){
             let o = document.createElement("option");
             if(i == 0){
                 o.setAttribute('selected', true);
                 o.innerHTML = "When";
             }
-            // else{
-            //     o.innerHTML = "Then";
-            // }
+            else{
+                o.innerHTML = "Then";
+            }
             s.appendChild(o)
         }
     }

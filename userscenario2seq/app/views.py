@@ -107,6 +107,9 @@ def deleteFeature(request, feature_id,project_id):
 
 @login_required(login_url="/login/")
 def generateSequence(request, feature_id,project_id):
+    #ambil project
+    project_to_generate = get_object_or_404(project, pk=project_id)
+
     #ambil fitur yang ingin digenerate
     feature_to_generate = get_object_or_404(feature, pk=feature_id)
 
@@ -162,7 +165,7 @@ def generateSequence(request, feature_id,project_id):
     else:    
         print("Directory " , dirName ,  " already exists")
         
-    f = open('sequences/'+str(feature_id)+".txt","w")
+    f = open('sequences/'+str(project_to_generate.project_name)+'_'+str(feature_to_generate.feature_name)+'_'+str(feature_id)+".txt","w")
     f.write("title "+feature_to_generate.feature_name+'\n')
     #f.write("@startuml\n")
     f.write("hide footbox\n")
@@ -191,7 +194,9 @@ def generateSequence(request, feature_id,project_id):
                     f.write('control "'+controllerName+'"\n')
 
             #looping khusus when
+            whenCount = 1
             for (j, c) in enumerate(conditions):
+                
                 if(c.tipe == 'When'):
                     message = ""
                     when = c.content
@@ -204,13 +209,22 @@ def generateSequence(request, feature_id,project_id):
                             message = when[indexcond+1:indexcondbr]
                             break
 
-                    f.write('"'+roleName+'" --> "'+boundaryName+'" :'+message+'\n')  
-                    f.write('activate "'+boundaryName+'"\n')   
+                    f.write('"'+roleName+'" --> "'+boundaryName+'" :'+message+'\n')
+                      
+                    if(whenCount == 1):
+                        f.write('activate "'+boundaryName+'"\n')   
+
+                    whenCount = whenCount + 1
+                
+                if(j == (len(conditions)-1)):
+                    #ketika sudah sampai di terakhir, buat panah ke controller
                     f.write('"'+boundaryName+'" --> "'+controllerName+'" :empty\n')   
                     f.write('activate "'+controllerName+'"\n') 
             
             #looping khusus then
-            f.write('alt '+s.scenario_name+'\n')
+            if(len(scenarios) > 1):
+                f.write('alt '+s.scenario_name+'\n')
+
             for (j, c) in enumerate(conditions): 
                 if(c.tipe == 'Then'):
                     then = c.content
@@ -223,8 +237,7 @@ def generateSequence(request, feature_id,project_id):
                             systemResponse = then[indexcond+1:indexcondbr]
                             break
 
-                    if(len(scenarios) > 1):
-                        f.write(' "'+controllerName+'" --> "'+boundaryName+'" :'+systemResponse+'\n')
+                    f.write(' "'+controllerName+'" --> "'+boundaryName+'" :'+systemResponse+'\n')
                         
     #looping khusus nyari scenario alternative
     for (i, s) in enumerate(scenarios): 
@@ -255,7 +268,7 @@ def generateSequence(request, feature_id,project_id):
                 f.write('deactivate "'+boundaryName+'"\n')
     
     #f.write("@enduml\n")
-    f = open('sequences/'+str(feature_id)+".txt","r")
+    f = open('sequences/'+str(project_to_generate.project_name)+'_'+str(feature_to_generate.feature_name)+'_'+str(feature_id)+".txt","r")
 
     #generate sequence
     server = PlantUML(url='http://www.plantuml.com/plantuml/img/',
@@ -265,7 +278,7 @@ def generateSequence(request, feature_id,project_id):
     # Call the PlantUML server on the .txt file
     #downloads_path = str(Path.home() / "Downloads")
 
-    server.processes_file(abspath(f'sequences/'+str(feature_id)+'.txt'))
+    server.processes_file(abspath(f'sequences/'+str(project_to_generate.project_name)+'_'+str(feature_to_generate.feature_name)+'_'+str(feature_id)+'.txt'))
 
 
     return redirect('detail-project', project_id=project_id)

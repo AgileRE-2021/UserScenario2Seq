@@ -127,15 +127,15 @@
                                                                     <select class="form-control" name="scenario{{ p.id_scenario }}-condition{{ cn.id_condition }}-tipe" value="{{ cn.tipe }}" required>
                                                                         {% if cn.tipe == "Given"  %}
                                                                             <option selected>Given</option>
-                                                                            <option>When</option>
-                                                                            <option>Then</option>
+                                                                            <!-- <option>When</option>
+                                                                            <option>Then</option> -->
                                                                         {% elif cn.tipe == "When" %}
-                                                                            <option>Given</option>
+                                                                            <!-- <option>Given</option> -->
                                                                             <option selected>When</option>
-                                                                            <option>Then</option>
+                                                                            <!-- <option>Then</option> -->
                                                                         {% else %}
-                                                                            <option>Given</option>
-                                                                            <option>When</option>
+                                                                            <!-- <option>Given</option>
+                                                                            <option>When</option> -->
                                                                             <option selected>Then</option>
                                                                         {% endif %}
                                                                     </select>
