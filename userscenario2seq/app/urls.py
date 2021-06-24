@@ -49,6 +49,13 @@ urlpatterns = [
     # # Add Feature Page
     path('add-feature/<int:project_id>', views.addFeature, name='add-feature'),
     path('add-feature/store', views.addFeatureHasil, name='add-feature-hasil'),
+
+    # Generate Sequence
+    path('generate-sequence/<int:project_id>/<int:feature_id>', views.generateSequence, name='generate-sequence'),
+
+    # Download Image
+    path('download-image/<int:project_id>/<str:file_name>', views.downloadImage, name='download-image'),
+
     # Matches any html file
     re_path(r'^.*\.*', views.pages, name='pages'),
 

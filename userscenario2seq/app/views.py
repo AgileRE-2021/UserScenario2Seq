@@ -7,10 +7,15 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from django.template import loader
-from django.http import HttpResponse
+from django.conf import settings
+from django.http import HttpResponse, Http404, FileResponse
 from django import template
 from app.models import project, feature, scenario, condition
 from django.utils import timezone
+from plantuml import PlantUML
+from pathlib import Path
+import os
+from os.path import abspath
 
 @login_required(login_url="/login/")
 def index(request):
@@ -99,6 +104,197 @@ def deleteProject(request, project_id):
 def deleteFeature(request, feature_id,project_id):
     feature_to_delete = get_object_or_404(feature, pk=feature_id).delete()
     return redirect('detail-project', project_id=project_id)
+
+@login_required(login_url="/login/")
+def generateSequence(request, feature_id,project_id):
+    #ambil project
+    project_to_generate = get_object_or_404(project, pk=project_id)
+
+    #ambil fitur yang ingin digenerate
+    feature_to_generate = get_object_or_404(feature, pk=feature_id)
+
+    #ambil semua scenario sesuai fiturnya
+    scenarios = scenario.objects.filter(feature=feature_to_generate)
+
+    #deklarasi tanda yang mau digunakan
+    tanda = "#"
+
+    story = feature_to_generate.user_story #Dari database
+    index = story.index(tanda) #5
+    indexbr = 0
+    for i in range ( index+1,len(story)): #KATA1
+        if (story[i] == "#") :
+            indexbr = i #10
+            kata1 = story[index+1:indexbr] #kata1 dapat role
+            for j in range ( indexbr+1,len(story)): #KATA2
+                if (story[j] == "#") :
+                    indexbr2 = j #24
+                    for k in range ( indexbr2+1 , len(story)) :
+                        if story[k] == "#" :
+                            indexbr22 = k #30
+                            kata2 = story[indexbr2+1:indexbr22] #kata2 dapat action
+                            for l in range ( indexbr22+1 , len(story)) :#KATA3
+                                if story[l] == "#" :
+                                    indexbr3 = l #43
+                                    for m in range ( indexbr3+1 , len(story)) :
+                                        if story[m] == "#" :
+                                            indexbr33 = m
+                                            kata3 = story[indexbr3+1:indexbr33] #kata3 dapat benefit
+                                            break
+                                    break
+                            break
+                    break
+            break
+    
+    #buat nama controller
+    controllerName = feature_to_generate.feature_name+'Controller'
+
+    #buat nama peran
+    roleName = kata1
+
+    #buat boundary kosong
+    boundaryName = ""
+
+    #mulai buat file .txt
+    
+    dirName = 'sequences'
+    # Create target Directory if don't exist
+    if not os.path.exists(dirName):
+        os.mkdir(dirName)
+        print("Directory " , dirName ,  " Created ")
+    else:    
+        print("Directory " , dirName ,  " already exists")
+        
+    f = open('sequences/'+str(project_to_generate.project_name)+'_'+str(feature_to_generate.feature_name)+'_'+str(feature_id)+".txt","w")
+    f.write("title "+feature_to_generate.feature_name+'\n')
+    #f.write("@startuml\n")
+    f.write("hide footbox\n")
+    f.write('actor "'+roleName+'"\n')
+
+    #looping khusus nyari scenario normal
+    for (i, s) in enumerate(scenarios): 
+        if(s.scenario_type == 'Normal'):
+            #get condition sesuai scenario
+            conditions = condition.objects.filter(scenario=s)
+
+            #looping khusus nyari given karena given harus urutan pertama
+            for (j, c) in enumerate(conditions):
+                if(c.tipe == 'Given'):
+                    given =  c.content
+                    tanda = "#"
+                    indexcond = given.index(tanda) 
+                    indexcondbr = 0
+                    for g in range ( indexcond+1,len(given)): #KATA1
+                        if (given[g] == "#") :
+                            indexcondbr = g 
+                            boundaryName = given[indexcond+1:indexcondbr]
+                            break
+                        
+                    f.write('boundary "'+boundaryName+'"\n')
+                    f.write('control "'+controllerName+'"\n')
+
+            #looping khusus when
+            whenCount = 1
+            for (j, c) in enumerate(conditions):
+                
+                if(c.tipe == 'When'):
+                    message = ""
+                    when = c.content
+                    tanda = "#"
+                    indexcond = when.index(tanda) 
+                    indexcondbr = 0
+                    for h in range ( indexcond+1,len(when)): #KATA1
+                        if (when[h] == "#") :
+                            indexcondbr = h 
+                            message = when[indexcond+1:indexcondbr]
+                            break
+
+                    f.write('"'+roleName+'" --> "'+boundaryName+'" :'+message+'\n')
+                      
+                    if(whenCount == 1):
+                        f.write('activate "'+boundaryName+'"\n')   
+
+                    whenCount = whenCount + 1
+                
+                if(j == (len(conditions)-1)):
+                    #ketika sudah sampai di terakhir, buat panah ke controller
+                    f.write('"'+boundaryName+'" --> "'+controllerName+'" :empty\n')   
+                    f.write('activate "'+controllerName+'"\n') 
+            
+            #looping khusus then
+            if(len(scenarios) > 1):
+                f.write('alt '+s.scenario_name+'\n')
+
+            for (j, c) in enumerate(conditions): 
+                if(c.tipe == 'Then'):
+                    then = c.content
+                    tanda = "#"
+                    indexcond = then.index(tanda) 
+                    indexcondbr = 0
+                    for h in range ( indexcond+1,len(then)): #KATA1
+                        if (then[h] == "#") :
+                            indexcondbr = h
+                            systemResponse = then[indexcond+1:indexcondbr]
+                            break
+
+                    f.write(' "'+controllerName+'" --> "'+boundaryName+'" :'+systemResponse+'\n')
+                        
+    #looping khusus nyari scenario alternative
+    for (i, s) in enumerate(scenarios): 
+        if(s.scenario_type == 'Alternative'):
+            conditions = condition.objects.filter(scenario=s)
+
+            if(len(scenarios) > 1):
+                f.write('else '+s.scenario_name+'\n')
+
+                #looping khusus then
+                for (j, c) in enumerate(conditions): 
+                    if(c.tipe == 'Then'):
+                        then = c.content
+                        tanda = "#"
+                        indexcond = then.index(tanda) 
+                        indexcondbr = 0
+                        for h in range ( indexcond+1,len(then)): #KATA1
+                            if (then[h] == "#") :
+                                indexcondbr = h
+                                systemResponse = then[indexcond+1:indexcondbr]
+                                break
+
+                        f.write(' "'+controllerName+'" --> "'+boundaryName+'" :'+systemResponse+'\n')
+
+            if(i == (len(scenarios)-1)):
+                #berarti scenario terakhir
+                f.write('end\n')
+                f.write('deactivate "'+boundaryName+'"\n')
+    
+    #f.write("@enduml\n")
+    f = open('sequences/'+str(project_to_generate.project_name)+'_'+str(feature_to_generate.feature_name)+'_'+str(feature_id)+".txt","r")
+
+    #generate sequence
+    server = PlantUML(url='http://www.plantuml.com/plantuml/img/',
+                          basic_auth={},
+                          form_auth={}, http_opts={}, request_opts={})
+
+    # Call the PlantUML server on the .txt file
+    #downloads_path = str(Path.home() / "Downloads")
+
+    server.processes_file(abspath(f'sequences/'+str(project_to_generate.project_name)+'_'+str(feature_to_generate.feature_name)+'_'+str(feature_id)+'.txt'))
+
+    imageFileName = str(project_to_generate.project_name)+'_'+str(feature_to_generate.feature_name)+'_'+str(feature_id)+'.png'
+
+    return redirect('download-image', project_id=project_id, file_name=imageFileName)
+    #return redirect('detail-project', project_id=project_id)
+
+@login_required(login_url="/login/")
+def downloadImage(request, project_id, file_name):
+    # fill these variables with real values
+    imagePath = 'sequences/'+file_name
+
+    img = open(imagePath, 'rb')
+
+    response = FileResponse(img)
+
+    return response
 
 @login_required(login_url="/login/")
 def detailProject(request,project_id):

@@ -1,0 +1,18 @@
+title Login v2.0
+hide footbox
+actor "user"
+boundary "login page"
+control "Login v2.0Controller"
+"user" --> "login page" :fill the form
+activate "login page"
+"login page" --> "Login v2.0Controller" :empty
+activate "Login v2.0Controller"
+alt Account Valid
+ "Login v2.0Controller" --> "login page" :display home page
+else Wrong Password
+ "Login v2.0Controller" --> "login page" :display warn wrong password
+ "Login v2.0Controller" --> "login page" :move user back to login page
+else Username is not Valid
+ "Login v2.0Controller" --> "login page" :display warn account is not valid
+end
+deactivate "login page"

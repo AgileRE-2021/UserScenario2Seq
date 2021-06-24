@@ -4997,9 +4997,9 @@ input[type="button"].btn-block {
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    background-color: rgba(216,170,188,255);
+    background-color: rgba(216,170,1880, 0.2);
     background-clip: border-box;
-    border: 0px solid rgba(213,184,205,255);
+    border: 0px solid rgba(216,170,1880, 0.2);
     border-radius: 5px;
 }
 
@@ -5022,7 +5022,7 @@ input[type="button"].btn-block {
     -webkit-box-flex: 1;
     flex: 1 1 auto;
     padding: 25px;
-    background-color: rgba(216,170,188,255);
+    background-color: rgba(216,170,1880, 0.2);
 }
 
 .card-title {
@@ -5049,7 +5049,7 @@ input[type="button"].btn-block {
 .card-header {
     padding: 25px 25px;
     margin-bottom: 0;
-    background-color: rgba(216,170,188,255);
+    background-color: rgba(216,170,1880, 0.2);
     border-bottom: 0px solid rgba(0, 0, 0, 0.125);
 }
 
@@ -18527,7 +18527,7 @@ strong {
 
 .page-header {
     box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-    background: #d8aabc;
+    background: rgba(216,170,188, 0.4);
     padding: 20px 25px;
     border-radius: 5px;
 }

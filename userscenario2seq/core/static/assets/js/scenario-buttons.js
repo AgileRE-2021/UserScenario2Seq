@@ -24,13 +24,10 @@ function addCondition(id){
 
     //masukkan tiap option ke dalam select
     if(buttonId == 0){
-        for(let i=0;i<3;i++){
+        for(let i=0;i<2;i++){
             let o = document.createElement("option");
             if(i == 0){
                 o.setAttribute('selected', true);
-                o.innerHTML = "Given";
-            }
-            else if(i == 1){
                 o.innerHTML = "When";
             }
             else{

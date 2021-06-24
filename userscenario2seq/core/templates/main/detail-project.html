@@ -26,8 +26,8 @@
                                 <hr>
                             </div>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                                <li class="breadcrumb-item"><a href="#!"> List Project </a></li>
+                                <li class="breadcrumb-item"><a href="/tutorial"><i class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="/list-project"> List Project </a></li>
                                 <li class="breadcrumb-item"><a href="#!"> Detail Project </a></li>
                             </ul>
                         </div>
@@ -83,6 +83,11 @@
                                             <td>{{ p.date_created }}</td>
                                             <td>{{ p.last_updated }}</td>
                                             <td>
+                                                <a href="/generate-sequence/{{ context.id_project}}/{{ p.id_feature}}" target="_blank">
+                                                    <button class="btn btn-info">
+                                                        Generate Sequence
+                                                    </button>
+                                                </a>
                                                 <a href="/edit-feature/{{ context.id_project}}/{{ p.id_feature }}">
                                                     <button class="btn btn-primary">
                                                         Edit

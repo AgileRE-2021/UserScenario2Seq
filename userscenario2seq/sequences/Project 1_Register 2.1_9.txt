@@ -1,0 +1,15 @@
+title Register 2.1
+hide footbox
+actor "new user"
+boundary "register page"
+control "Register 2.1Controller"
+"new user" --> "register page" :fill the register form
+activate "register page"
+"register page" --> "Register 2.1Controller" :empty
+activate "Register 2.1Controller"
+alt Register Success
+ "Register 2.1Controller" --> "register page" :display login page
+else Account is Already Exist
+ "Register 2.1Controller" --> "register page" :display warn account exist
+end
+deactivate "register page"
