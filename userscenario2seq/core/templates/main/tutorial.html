@@ -32,37 +32,176 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <div id="carouselExampleIndicatorscaption" class="carousel slide mx-auto my-5" style="max-width: 800px;" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                            </ol>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img class="img-fluid d-block w-100" src="/static/assets/images/slider/img-slide-2.jpg" alt="First slide">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5 class="text-white">First slide label</h5>
-                                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                                    </div>
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <h4>How to create a new project?</h4>
+                                    </button>
+                                </h2>
                                 </div>
-                                <div class="carousel-item">
-                                    <img class="img-fluid d-block w-100" src="/static/assets/images/slider/img-slide-1.jpg" alt="Second slide">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5 class="text-white">Second slide label</h5>
-                                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <img class="img-fluid d-block w-100" src="/static/assets/images/slider/img-slide-3.jpg" alt="Third slide">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5 class="text-white">Third slide label</h5>
-                                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                            
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div id="carousel-1" class="carousel slide mx-auto my-5" style="max-width: 1000px;" data-ride="carousel">
+                                            <ol class="carousel-indicators">
+                                                <li data-target="#carousel-1" data-slide-to="0" class="active"></li>
+                                                <li data-target="#carousel-1" data-slide-to="1"></li>
+                                                <li data-target="#carousel-1" data-slide-to="2"></li>
+                                            </ol>
+                                            <div class="carousel-inner">
+                                                <div class="carousel-item active">
+                                                    <img class="img-fluid d-block w-100" src="/static/assets/images/tutorial/create-project/create_project_1.png" alt="Click on Create Project">
+                                                    <div class="carousel-caption d-none d-md-block" style="background-color:rgba(80,80,80,0.6)">
+                                                        <h5 class="text-white">First, click the "Create Project"</h5>
+                                                        <p>First, click the "Create Project" button inside the sidebar.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img class="img-fluid d-block w-100" src="/static/assets/images/tutorial/create-project/create_project_2.png" alt="Second slide">
+                                                    <div class="carousel-caption d-none d-md-block" style="background-color:rgba(80,80,80,0.6)">
+                                                        <h5 class="text-white">Second, fill the project's information (see the steps below)</h5>
+                                                        <ol class="text-left" style="font-size:16px">
+                                                            <li>Insert the project's name</li>
+                                                            <li>Insert the project's description</li>
+                                                            <li>Click the "Submit" button</li>
+                                                        </ol>
+                                                    </div>
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img class="img-fluid d-block w-100" src="/static/assets/images/tutorial/create-project/create_project_3.png" alt="Third slide">
+                                                    <div class="carousel-caption d-none d-md-block" style="background-color:rgba(80,80,80,0.6)">
+                                                        <h5 class="text-white">Your project is created!</h5>
+                                                        <p>Your new project will be displayed in List Project page. You can use the search feature to find any specific project.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <a class="carousel-control-prev" href="#carousel-1" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="sr-only">Previous</span></a>
+                                            <a class="carousel-control-next" href="#carousel-1" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="sr-only">Next</span></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <a class="carousel-control-prev" href="#carouselExampleIndicatorscaption" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="sr-only">Previous</span></a>
-                            <a class="carousel-control-next" href="#carouselExampleIndicatorscaption" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="sr-only">Next</span></a>
+                            <div class="card">
+                                <div class="card-header" id="headingTwo">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <h4>How to add new feature in project?</h4>
+                                    </button>
+                                </h2>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div id="carousel-2" class="carousel slide mx-auto my-5" style="max-width: 1000px;" data-ride="carousel">
+                                            <ol class="carousel-indicators">
+                                                <li data-target="#carousel-2" data-slide-to="0" class="active"></li>
+                                                <li data-target="#carousel-2" data-slide-to="1"></li>
+                                                <li data-target="#carousel-2" data-slide-to="2"></li>
+                                                <li data-target="#carousel-2" data-slide-to="3"></li>
+                                                <li data-target="#carousel-2" data-slide-to="4"></li>
+                                                <li data-target="#carousel-2" data-slide-to="5"></li>
+                                            </ol>
+                                            <div class="carousel-inner">
+                                                <div class="carousel-item active">
+                                                    <img class="img-fluid d-block w-100" src="/static/assets/images/tutorial/add-feature/add_feature_1.png" alt="First slide">
+                                                    <div class="carousel-caption d-none d-md-block" style="background-color:rgba(80,80,80,0.6)">
+                                                        <h5 class="text-white">First, click the "Detail" button on a specific project</h5>
+                                                        <p>You can also delete the project by clicking the "Delete" button.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img class="img-fluid d-block w-100" src="/static/assets/images/tutorial/add-feature/add_feature_2.png" alt="Second slide">
+                                                    <div class="carousel-caption d-none d-md-block" style="background-color:rgba(80,80,80,0.6)">
+                                                        <h5 class="text-white">Second, click the "Add Feature" button</h5>
+                                                        <p>You can also edit your project name and description by clicking the "Edit Project" button.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img class="img-fluid d-block w-100" src="/static/assets/images/tutorial/add-feature/add_feature_3.png" alt="Second slide">
+                                                    <div class="carousel-caption d-none d-md-block" style="background-color:rgba(80,80,80,0.6)">
+                                                        <h5 class="text-white">Third, fill the feature's information (see the steps below)</h5>
+                                                        <ol class="text-left" style="font-size:16px">
+                                                            <li>Insert the feature's name</li>
+                                                            <li>Insert the user story (pay attention to the format)</li>
+                                                        </ol>
+                                                    </div>
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img class="img-fluid d-block w-100" src="/static/assets/images/tutorial/add-feature/add_feature_4.png" alt="Second slide">
+                                                    <div class="carousel-caption d-none d-md-block" style="background-color:rgba(80,80,80,0.6)">
+                                                        <h5 class="text-white">Fourth, complete the normal scenario (see the steps below)</h5>
+                                                        <ol class="text-left" style="font-size:16px">
+                                                            <li>Insert the normal scenario name (ex: Login Success)</li>
+                                                            <li>Choose the type of each condition (you can choose on the additional condition)</li>
+                                                            <li>Fill the condition based on it's type (see the instruction above)</li>
+                                                            <li>You can add new condition (When/Then) by clicking the "Add Condition" button</li>
+                                                            <li>You can remove the additional condition by clicking the "Decrease Condition" button</li>
+                                                        </ol>
+                                                    </div>
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img class="img-fluid d-block w-100" src="/static/assets/images/tutorial/add-feature/add_feature_5.png" alt="Second slide">
+                                                    <div class="carousel-caption d-none d-md-block" style="background-color:rgba(80,80,80,0.6)">
+                                                        <h5 class="text-white">Fifth, you can also add alternative scenarios (see the steps below)</h5>
+                                                        <ol class="text-left" style="font-size:16px">
+                                                            <li>Click the "Add Scenario" button to add alternative scenario</li>
+                                                            <li>You can delete the alternative scenario by clicking the "Delete Scenario" button</li>
+                                                            <li>If you finish already, click the "Submit" button</li>
+                                                        </ol>
+                                                    </div>
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img class="img-fluid d-block w-100" src="/static/assets/images/tutorial/add-feature/add_feature_6.png" alt="Second slide">
+                                                    <div class="carousel-caption d-none d-md-block" style="background-color:rgba(80,80,80,0.6)">
+                                                        <h5 class="text-white">You can see the new feature at the project's detail page</h5>
+                                                        <p>You can also search the specific feature</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <a class="carousel-control-prev" href="#carousel-2" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="sr-only">Previous</span></a>
+                                            <a class="carousel-control-next" href="#carousel-2" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="sr-only">Next</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="headingThree">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        <h4>How to generate sequence diagram from feature?</h4>
+                                    </button>
+                                </h2>
+                                </div>
+                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div id="carousel-3" class="carousel slide mx-auto my-5" style="max-width: 1000px;" data-ride="carousel">
+                                            <ol class="carousel-indicators">
+                                                <li data-target="#carousel-3" data-slide-to="0" class="active"></li>
+                                                <li data-target="#carousel-3" data-slide-to="1"></li>
+                                            </ol>
+                                            <div class="carousel-inner">
+                                                <div class="carousel-item active">
+                                                    <img class="img-fluid d-block w-100" src="/static/assets/images/tutorial/generate-sequence/generate_sequence_1.png" alt="Click on Create Project">
+                                                    <div class="carousel-caption d-none d-md-block" style="background-color:rgba(80,80,80,0.6)">
+                                                        <h5 class="text-white">First, click the "Generate Sequence" button on the feature</h5>
+                                                        <p>You can also delete or edit the feature by clicking on the "Edit" or "Delete" button.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img class="img-fluid d-block w-100" src="/static/assets/images/tutorial/generate-sequence/generate_sequence_2.png" alt="Second slide">
+                                                    <div class="carousel-caption d-none d-md-block" style="background-color:rgba(80,80,80,0.6)">
+                                                        <h5 class="text-white">Then, a new tab with the sequence diagram in it will be opened</h5>
+                                                        <p>You can also download it by right click on the image then choose "Save Image As".</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <a class="carousel-control-prev" href="#carousel-3" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="sr-only">Previous</span></a>
+                                            <a class="carousel-control-next" href="#carousel-3" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="sr-only">Next</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -72,7 +211,16 @@
     <!-- [ Main Content ] end -->
     </div>
 </div>
-
+<style>
+    .carousel-caption:hover{
+        opacity: 0;
+        transition: 0.5s;
+    }
+    .carousel-caption{
+        opacity: 1;
+        transition: 0.5s;
+    }
+</style>
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->

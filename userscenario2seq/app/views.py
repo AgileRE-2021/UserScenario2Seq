@@ -8,7 +8,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from django.template import loader
 from django.conf import settings
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, FileResponse
 from django import template
 from app.models import project, feature, scenario, condition
 from django.utils import timezone
@@ -280,8 +280,21 @@ def generateSequence(request, feature_id,project_id):
 
     server.processes_file(abspath(f'sequences/'+str(project_to_generate.project_name)+'_'+str(feature_to_generate.feature_name)+'_'+str(feature_id)+'.txt'))
 
+    imageFileName = str(project_to_generate.project_name)+'_'+str(feature_to_generate.feature_name)+'_'+str(feature_id)+'.png'
 
-    return redirect('detail-project', project_id=project_id)
+    return redirect('download-image', project_id=project_id, file_name=imageFileName)
+    #return redirect('detail-project', project_id=project_id)
+
+@login_required(login_url="/login/")
+def downloadImage(request, project_id, file_name):
+    # fill these variables with real values
+    imagePath = 'sequences/'+file_name
+
+    img = open(imagePath, 'rb')
+
+    response = FileResponse(img)
+
+    return response
 
 @login_required(login_url="/login/")
 def detailProject(request,project_id):
