@@ -1,0 +1,15 @@
+title login
+hide footbox
+actor "admin"
+boundary "login page"
+control "loginController"
+"admin" --> "login page" :fill login form
+activate "login page"
+"login page" --> "loginController" :empty
+activate "loginController"
+alt login succes
+ "loginController" --> "login page" :display login succes
+else login failed
+ "loginController" --> "login page" :display login failed
+end
+deactivate "login page"
