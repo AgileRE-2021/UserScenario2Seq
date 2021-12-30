@@ -1,0 +1,17 @@
+title Registration Form
+hide footbox
+actor "Facebook User"
+boundary "log in page"
+control "Registration FormController"
+"Facebook User" --> "log in page" :fill “Ujicoba@gmail.com” in “inputName” field
+activate "log in page"
+"Facebook User" --> "log in page" :fill “1234” in “inputPassword” field
+"Facebook User" --> "log in page" :submit the form
+"log in page" --> "Registration FormController" :empty
+activate "Registration FormController"
+alt Login Success
+ "Registration FormController" --> "log in page" :go to Home Login
+else Wrong Username
+ "Registration FormController" --> "log in page" :go to Error Login page
+end
+deactivate "log in page"

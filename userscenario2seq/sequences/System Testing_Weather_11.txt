@@ -1,0 +1,17 @@
+title Weather
+hide footbox
+actor "beginner"
+boundary "http://api.openweathermap.org/data/2.5/weather"
+control "WeatherController"
+"beginner" --> "http://api.openweathermap.org/data/2.5/weather" :the city is <city> and the country <country>
+activate "http://api.openweathermap.org/data/2.5/weather"
+"beginner" --> "http://api.openweathermap.org/data/2.5/weather" :ask for the city and country name
+"http://api.openweathermap.org/data/2.5/weather" --> "WeatherController" :empty
+activate "WeatherController"
+alt Check if a city and and country given are correct
+ "WeatherController" --> "http://api.openweathermap.org/data/2.5/weather" :check if the city and country are correct
+ "WeatherController" --> "http://api.openweathermap.org/data/2.5/weather" :check if the status code is 200
+else Check if the temperature is correct given a city and a country
+ "WeatherController" --> "http://api.openweathermap.org/data/2.5/weather" :get the temperature look by city and country
+end
+deactivate "http://api.openweathermap.org/data/2.5/weather"

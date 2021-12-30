@@ -1,0 +1,12 @@
+title News admin panel
+hide footbox
+actor "site administrator"
+boundary "/admin/news page"
+control "News admin panelController"
+"site administrator" --> "/admin/news page" :click "New Article"
+activate "/admin/news page"
+"site administrator" --> "/admin/news page" :fill in "Title" with "Learned BDD"
+"site administrator" --> "/admin/news page" :press "Save"
+"/admin/news page" --> "News admin panelController" :empty
+activate "News admin panelController"
+ "News admin panelController" --> "/admin/news page" :"A new article was added”

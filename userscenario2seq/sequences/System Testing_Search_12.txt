@@ -1,0 +1,16 @@
+title Search
+hide footbox
+actor "website user"
+boundary "wiki/Main_Page"
+control "SearchController"
+"website user" --> "wiki/Main_Page" :fill in “search” with “Behavior Driven Development”
+activate "wiki/Main_Page"
+"website user" --> "wiki/Main_Page" :press “searchButton”
+"wiki/Main_Page" --> "SearchController" :empty
+activate "SearchController"
+alt Searching for a page that does exist
+ "SearchController" --> "wiki/Main_Page" :see “agile software development”
+else Searching for a page that doesn’t exist
+ "SearchController" --> "wiki/Main_Page" :see message “ Page not exist”
+end
+deactivate "wiki/Main_Page"

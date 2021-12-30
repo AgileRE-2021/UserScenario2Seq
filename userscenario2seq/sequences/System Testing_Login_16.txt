@@ -1,0 +1,18 @@
+title Login
+hide footbox
+actor "user of MyCoolBlog.com"
+boundary "login page"
+control "LoginController"
+"user of MyCoolBlog.com" --> "login page" :login with valid credentials
+activate "login page"
+"user of MyCoolBlog.com" --> "login page" :logs in
+"login page" --> "LoginController" :empty
+activate "LoginController"
+alt Login with valid credentials works
+ "LoginController" --> "login page" :login is accepted
+ "LoginController" --> "login page" :homepage of the user is shown
+else A login with invalid credentials is rejected.
+ "LoginController" --> "login page" :login is rejected
+ "LoginController" --> "login page" :forgotten password page is displayed
+end
+deactivate "login page"

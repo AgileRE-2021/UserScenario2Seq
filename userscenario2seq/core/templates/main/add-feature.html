@@ -97,6 +97,7 @@
                                                     <button 
                                                         class="btn btn-primary btn-block my-1" 
                                                         type="button" 
+                                                        id="add-scenario"
                                                         onclick="addScenario()"
                                                         >Add Scenario
                                                     </button>
@@ -112,9 +113,9 @@
                                     <div class="col-md-12" id="all-scenario">
                                     </div>
                                 </div> 
-                                <button type="submit" class="btn  btn-primary float-right">Submit</button>
+                                <button id="submit-add-feature" type="submit" class="btn  btn-primary float-right">Submit</button>
                                 <a href="/detail-project/{{ context.project_id }}">
-                                    <button type="button" class="btn  btn-danger float-right mr-2">Cancel</button>  
+                                    <button id="cancel-add-feature" type="button" class="btn  btn-danger float-right mr-2">Cancel</button>  
                                 </a> 
                             </form>
                         </div>

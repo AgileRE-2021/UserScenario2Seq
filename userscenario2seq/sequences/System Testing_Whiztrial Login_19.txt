@@ -1,0 +1,12 @@
+title Whiztrial Login
+hide footbox
+actor "user"
+boundary "http://localhost/whizTrial/"
+control "Whiztrial LoginController"
+"user" --> "http://localhost/whizTrial/" :enter username as "gsahai”
+activate "http://localhost/whizTrial/"
+"user" --> "http://localhost/whizTrial/" :enter password as "pass123"
+"user" --> "http://localhost/whizTrial/" :click on "Login"
+"http://localhost/whizTrial/" --> "Whiztrial LoginController" :empty
+activate "Whiztrial LoginController"
+ "Whiztrial LoginController" --> "http://localhost/whizTrial/" :be "successful"

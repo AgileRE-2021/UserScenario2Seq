@@ -1,0 +1,17 @@
+title GuestBook
+hide footbox
+actor "Admin"
+boundary "guests/create"
+control "GuestBookController"
+"Admin" --> "guests/create" :fill in “name” with “John Doe”
+activate "guests/create"
+"Admin" --> "guests/create" :press Submit
+"guests/create" --> "GuestBookController" :empty
+activate "GuestBookController"
+alt With Valid Credentials
+ "GuestBookController" --> "guests/create" :see “Guest Book”
+ "GuestBookController" --> "guests/create" :see “John Doe”
+else With Invalid Credentials
+ "GuestBookController" --> "guests/create" :see “Sorry, fill the name field“
+end
+deactivate "guests/create"

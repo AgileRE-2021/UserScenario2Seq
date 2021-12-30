@@ -1,0 +1,18 @@
+title Login of the site
+hide footbox
+actor "site visito"
+boundary "/"
+control "Login of the siteController"
+"site visito" --> "/" :follow “Login”
+activate "/"
+"site visito" --> "/" :fill in “Username” with “admin”
+"site visito" --> "/" :fill in “Password” with “test”
+"site visito" --> "/" :press “Log in”
+"/" --> "Login of the siteController" :empty
+activate "Login of the siteController"
+alt Login into the site
+ "Login of the siteController" --> "/" :see “My account”
+else Login with wrong credentials
+ "Login of the siteController" --> "/" :see “Sorry, unrecognized username or password”
+end
+deactivate "/"
