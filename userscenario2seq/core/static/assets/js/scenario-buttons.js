@@ -167,6 +167,7 @@ function addScenario(){
     nameScenario.setAttribute('class','form-control')
     nameScenario.setAttribute('style',"max-width: 300px")
     nameScenario.setAttribute('name',`name${newScenarioId}`)
+    nameScenario.setAttribute('id',`name${newScenarioId}`)
     nameScenario.setAttribute('placeholder','Fill the scenario name')
     nameScenario.setAttribute('required',true)
     divScenario.appendChild(textScenario)
@@ -188,6 +189,7 @@ function addScenario(){
         let s = document.createElement("select");
         s.setAttribute('class', 'form-control');
         s.setAttribute('name',`scenario${newScenarioId}-tipe${i}`);
+        s.setAttribute('id',`scenario${newScenarioId}-tipe${i}`);
         s.setAttribute('required', true);
 
         //masukkan tiap option ke dalam select
@@ -224,6 +226,7 @@ function addScenario(){
         input.setAttribute('type','text')
         input.setAttribute('class','form-control')
         input.setAttribute('name',`scenario${newScenarioId}-content${i}`)
+        input.setAttribute('id',`scenario${newScenarioId}-content${i}`)
         input.setAttribute('placeholder','Fill the condition here')
         input.setAttribute('required',true)
         divInput.appendChild(input)

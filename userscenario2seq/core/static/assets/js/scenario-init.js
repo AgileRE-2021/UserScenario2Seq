@@ -37,6 +37,7 @@ nameScenario.setAttribute('type','text')
 nameScenario.setAttribute('class','form-control')
 nameScenario.setAttribute('style',"max-width: 300px")
 nameScenario.setAttribute('name',`name0`)
+nameScenario.setAttribute('id',`name0`)
 nameScenario.setAttribute('placeholder','Fill the scenario name')
 nameScenario.setAttribute('required',true)
 
@@ -57,6 +58,7 @@ for(let i=0; i<rowCount; i++){
     let s = document.createElement("select");
     s.setAttribute('class', 'form-control');
     s.setAttribute('name',`scenario0-tipe${i}`);
+    s.setAttribute('id',`scenario0-tipe${i}`);
     s.setAttribute('required', true);
 
     //masukkan tiap option ke dalam select
@@ -108,6 +110,7 @@ for(let i=0; i<rowCount; i++){
     input.setAttribute('type','text')
     input.setAttribute('class','form-control')
     input.setAttribute('name',`scenario0-content${i}`)
+    input.setAttribute('id',`scenario0-content${i}`)
     input.setAttribute('placeholder','Fill the condition here')
     input.setAttribute('required',true)
     divInput.appendChild(input)

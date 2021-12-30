@@ -1,0 +1,10 @@
+title Select the desired flight
+hide footbox
+actor "frequent traveler"
+boundary "Flights Page"
+control "Select the desired flightController"
+"frequent traveler" --> "Flights Page" :click on "Flights" referring to "AA flight 6557, AA flight 51"
+activate "Flights Page"
+"Flights Page" --> "Select the desired flightController" :empty
+activate "Select the desired flightController"
+ "Select the desired flightController" --> "Flights Page" :Optional log in

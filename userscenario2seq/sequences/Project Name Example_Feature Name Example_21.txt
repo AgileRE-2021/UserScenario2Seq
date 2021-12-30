@@ -1,0 +1,15 @@
+title Feature Name Example
+hide footbox
+actor "new user"
+boundary "detail project page"
+control "Feature Name ExampleController"
+"new user" --> "detail project page" :click on the add feature button
+activate "detail project page"
+"detail project page" --> "Feature Name ExampleController" :empty
+activate "Feature Name ExampleController"
+alt Normal Scenario Example
+ "Feature Name ExampleController" --> "detail project page" :move me into add feature page
+else Click on back button
+ "Feature Name ExampleController" --> "detail project page" :move me to list project page
+end
+deactivate "detail project page"

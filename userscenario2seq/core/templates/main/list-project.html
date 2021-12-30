@@ -71,12 +71,12 @@
                                             <td>{{ p.last_updated }}</td>
                                             <td>
                                                 <a href="detail-project/{{ p.id_project }}">
-                                                    <button class="btn btn-primary">
+                                                    <button class="btn btn-primary" id="edit-project-{{ p.id_project }}">
                                                         Detail
                                                     </button>
                                                 </a>
                                                 <a href="delete-project/{{ p.id_project }}">
-                                                    <button class="btn btn-danger">
+                                                    <button class="btn btn-danger" id="delete-project-{{ p.id_project }}">
                                                         Delete
                                                     </button>
                                                 </a>

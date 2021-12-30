@@ -1,0 +1,10 @@
+title Package delivery – T01
+hide footbox
+actor "messenger"
+boundary "list of addresses"
+control "Package delivery – T01Controller"
+"messenger" --> "list of addresses" :choose the closest address for the delivery
+activate "list of addresses"
+"list of addresses" --> "Package delivery – T01Controller" :empty
+activate "Package delivery – T01Controller"
+ "Package delivery – T01Controller" --> "list of addresses" :find the optimum route to destination via Google Maps
